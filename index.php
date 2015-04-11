@@ -13,7 +13,6 @@ foreach ($r->getData() as $account) {
 	echo $account['id'] . "\t" . join(", ", $account['email_addresses']) . "\n";
 	if (is_null($accountId)) {
 		$accountId = $account['id'];
-		echo $accountId;
 	}
 }
 if (is_null($accountId)) {
@@ -28,7 +27,7 @@ $toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->em
 
 // EXAMPLE 1
 // Print the subject line of the last 100 emails sent to with bill@widgets.com
-$args = array('from'=>'jacobkirlanstout@gmail.com', 'limit'=>100);
+$args = array('from'=>$toEmail, 'limit'=>100);
 echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
