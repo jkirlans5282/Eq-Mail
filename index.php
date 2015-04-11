@@ -26,9 +26,10 @@ foreach ($s->getData() as $messageDraft) {
 	echo "toEmail: ".$messageDraft['to']."\n";
 	$toEmail=$messageDraft['to'];
 }
-//$toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->email;
+  // $messageRecent->addresses->to[0]->email;
 */
 
+$toEmail= 'jacobkirlanstout@gmail.com';
 // Print the subject line of the last 100 emails sent from with bill@widgets.com
 $args = array('from'=>$toEmail, 'limit'=>100);
 echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
