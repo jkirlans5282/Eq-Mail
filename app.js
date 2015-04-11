@@ -14,6 +14,6 @@ var credentials = {
     }
   ]
 }
-
+//full contact
 var personalityInsights = new watson.personality_insights(credentials);
-
+document.write(personalityInsights)
