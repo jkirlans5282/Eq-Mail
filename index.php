@@ -1,4 +1,5 @@
 #!/usr/bin/php
+
 <?php
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -80,9 +81,6 @@ foreach ($r->getData() as $attachment) {
 }
 echo "\nall examples finished\n";
 
-
-
-//contextio();
 $text="written into the Trans-Pacific Partnership (TPP) and other trade agreements being negotiated by the Office of the United States Trade Representative. I oppose “trade” policies that are developed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical drug patents, restrict internet freedoms, and create a legal framework for companies to sue nations over potential profit loss.
 Extending pharmaceutical patents beyond the current 20 years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, the"; //where text is the output of the context.io pull
 
