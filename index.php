@@ -29,7 +29,7 @@ $toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->em
 // EXAMPLE 1
 // Print the subject line of the last 100 emails sent to with bill@widgets.com
 $args = array('from'=>'jacobkirlanstout@gmail.com', 'limit'=>100);
-echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
+echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
 	echo "Subject: ".$message['subject']."\n";
