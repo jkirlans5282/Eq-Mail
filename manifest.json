@@ -8,6 +8,6 @@
 		"default_popup":"index.html"
 	},
 	"permissions":[
-	"activeTab", "https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false"
+	"activeTab", "http://*/"
 	]
 }
