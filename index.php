@@ -1,6 +1,9 @@
 #!/usr/bin/php
 
 <?php
+
+$text="";
+
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
 // see https://console.context.io/#settings to get your consumer key and consumer secret.
@@ -41,7 +44,6 @@ foreach ($r->getData() as $message) {
 // EXAMPLE 2
 // Print the Data  of the last 100 emails sent from with bill@widgets.com
 
-$myFile = "BodyContent.txt";
 $fh = fopen($myFile, 'w') or die("can't open file");
 
 $args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
@@ -50,17 +52,12 @@ $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
 	print_r($message);
 	echo "Message: " .$message['body'][0]['content'];
-	$messageBodyContent = $message['body'][0]['content'];
-	fwrite($fh, $messageBodyContent);
+	$text = $message['body'][0]['content'];
 }
-	
-fclose($fh);
 
 
 echo "\nall examples finished\n";
 
-$text="written into the Trans-Pacific Partnership (TPP) and other trade agreements being negotiated by the Office of the United States Trade Representative. I oppose “trade” policies that are developed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical drug patents, restrict internet freedoms, and create a legal framework for companies to sue nations over potential profit loss.
-Extending pharmaceutical patents beyond the current 20 years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, the"; //where text is the output of the context.io pull
 
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
