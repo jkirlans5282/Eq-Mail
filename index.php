@@ -1,6 +1,5 @@
 <?php
 
-$text="";
 
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -11,7 +10,6 @@ $accountId = null;
 // list your accounts
 $r = $contextIO->listAccounts();
 foreach ($r->getData() as $account) {
-	echo $account['id'] . "\t" . join(", ", $account['email_addresses']) . "\n";
 	if (is_null($accountId)) {
 		$accountId = $account['id'];
 	}
@@ -32,32 +30,26 @@ foreach ($s->getData() as $messageDraft) {
 
 $toEmail= 'jacobkirlanstout@gmail.com';
 // Print the subject line of the last 100 emails sent from with bill@widgets.com
-$args = array('from'=>$toEmail, 'limit'=>100);
-echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+/*$args = array('from'=>$toEmail, 'limit'=>100);
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
 	echo "Subject: ".$message['subject']."\n";
 }
-
+*/
 // EXAMPLE 2
 // Print the Data  of the last 100 emails sent from with bill@widgets.com
 
 $args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
-echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+//echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
-	print_r($message);
-	echo "Message: " .$message['body'][0]['content'];
-	$text = $message['body'][0]['content'];
+	//echo "Message: " .$message['body'][0]['content'];
+	$text = $text+$message['body'][0]['content'];
 }
-
-
-echo "\nall examples finished\n";
-
 
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
-echo($command);
+//echo($command);
 $watsonOutput = exec($command);
 //$location = strpos ($output , '{');
 //echo($output);
