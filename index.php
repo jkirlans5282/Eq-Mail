@@ -1,32 +1,34 @@
 #!/usr/bin/php
 <HTML>
 <?php
-function contextio(){
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
 // see https://console.context.io/#settings to get your consumer key and consumer secret.
 $contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
 $accountId = null;
+
 // list your accounts
 $r = $contextIO->listAccounts();
 foreach ($r->getData() as $account) {
 	echo $account['id'] . "\t" . join(", ", $account['email_addresses']) . "\n";
 	if (is_null($accountId)) {
 		$accountId = $account['id'];
+		echo $accountId;
 	}
 }
 if (is_null($accountId)) {
 	die;
 }
 // Get the most recent drafts message reciepient
-$messageListResponseDrafts = $contextIO->listMessages($user['id'], array('label' => 0, 'folder' => $folder['[Gmail]/Drafts']));
+/*$messageListResponseDrafts = $contextIO->listMessages($user['id'], array('label' => 0, 'folder' => $folder['[Gmail]/Drafts']));
 $messagesDrafts = $messageListResponseDrafts->getData();
 $messageRecent= $messagesDrafts[0];
-$toEmail= $messageRecent->addresses->to[0]->email;
+*/
+$toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->email;
 
 // EXAMPLE 1
 // Print the subject line of the last 100 emails sent to with bill@widgets.com
-$args = array('to'=>$toEmail, 'limit'=>100);
+$args = array('from'=>'jacobkirlanstout@gmail.com', 'limit'=>100);
 echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
@@ -35,12 +37,20 @@ foreach ($r->getData() as $message) {
 
 // EXAMPLE 2
 // Print the Data  of the last 100 emails sent to with bill@widgets.com
+
+$myFile = "BodyContent.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+
 $args = array('to'=>$toEmail, 'limit'=>100);
 echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
-	echo "Message: ".$message['bodies']."\n";
+	echo "Message: " .$message->bodies[$r]->content;
+	$messageBodyContent = $message->bodies[$counter]->content;
+	fwrite($fh, $messageBodyContent);
 }
+	
+fclose($fh);
 
 // EXAMPLE 3
 // Download all versions of the last 2 attachments exchanged with bill@widgets.com
@@ -70,7 +80,7 @@ foreach ($r->getData() as $attachment) {
 	echo "done\n";
 }
 echo "\nall examples finished\n";
-}
+
 
 
 //contextio();
@@ -111,6 +121,8 @@ var_dump($json);
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <div id="one"><tr><td> item </td><td> value </td></tr></div>
+    <td>
   </body>
 </HTML>
 
