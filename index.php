@@ -6,7 +6,7 @@
 
   <meta charset="UTF-8">
 
-  <title>CodePen - Multi-level Accordion</title>
+  <title>PHP</title>
 
     <link rel="stylesheet" href="css/style.css">
 
