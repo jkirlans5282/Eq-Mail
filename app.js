@@ -1,4 +1,4 @@
-Watson credential
+Watson credentials
 
 {
   "personality_insights": [

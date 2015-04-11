@@ -11,6 +11,7 @@ Access Level Read and write
 Owner sethhovestol
 Owner ID 2157936864
 
+http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/index.shtml#develop
 
 Twitter script:
 https://gist.github.com/yanofsky/5436496
