@@ -30,6 +30,7 @@
 include_once("class.contextio.php");
 // see https://console.context.io/#settings to get your consumer key and consumer secret.
 $contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
+//$contextIO->setEndpoint('api-context-io-8hk77fawq24i.runscope.net');
 $accountId = null;
 
 // list your accounts
@@ -50,8 +51,8 @@ $messageRecent= $messagesDrafts[0];
 */
 $toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->email;
 
-// EXAMPLE 1
-// Print the subject line of the last 100 emails sent to with bill@widgets.com
+
+// Print the subject line of the last 100 emails sent from with bill@widgets.com
 $args = array('from'=>$toEmail, 'limit'=>100);
 echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
@@ -60,15 +61,16 @@ foreach ($r->getData() as $message) {
 }
 
 // EXAMPLE 2
-// Print the Data  of the last 100 emails sent to with bill@widgets.com
+// Print the Data  of the last 100 emails sent from with bill@widgets.com
 
 $myFile = "BodyContent.txt";
 $fh = fopen($myFile, 'w') or die("can't open file");
 
-$args = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
-echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
+$args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
+echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
+	print_r($message);
 	echo "Message: " .$message['body'][0]['content'];
 	//$messageBodyContent = $message->bodies[$counter]->content;
 	//fwrite($fh, $messageBodyContent);
@@ -76,7 +78,33 @@ foreach ($r->getData() as $message) {
 	
 fclose($fh);
 
-
+// EXAMPLE 3
+// Download all versions of the last 2 attachments exchanged with bill@widgets.com
+$saveToDir = dirname(__FILE__)."/".mt_rand(100,999);
+mkdir($saveToDir);
+$args = array('email'=>'bill@widgets.com', 'limit'=>2);
+echo "\nObtaining list of last two attachments exchanged with {$args['email']}\n";
+$r = $contextIO->listFiles($accountId, $args);
+foreach ($r->getData() as $document) {
+	echo "\nDownloading all versions of document \"".$document['file_name']."\"\n";
+	foreach ($document['occurrences'] as $attachment) {
+		echo "Downloading attachment '".$attachment['file_name']."' to $saveToDir ... ";
+		$contextIO->getFileContent($accountId, array('file_id'=>$attachment['fileId']), $saveToDir."/".$attachment['file_name']);
+		echo "done\n";
+	}
+}
+// EXAMPLE 4
+// Download all attachments with a file name that matches 'creenshot'
+$saveToDir = dirname(__FILE__)."/".mt_rand(100,999);
+mkdir($saveToDir);
+echo "\nDownloading all attachments matching 'creenshot'\n";
+$args = array('file_name'=>'creenshot');
+$r = $contextIO->listFiles($accountId, $args);
+foreach ($r->getData() as $attachment) {
+	echo "Downloading attachment '".$attachment['file_name']."' to $saveToDir ... ";
+	$contextIO->getFileContent($accountId, array('file_id'=>$attachment['file_id']), $saveToDir."/".$attachment['file_name']);
+	echo "done\n";
+}
 echo "\nall examples finished\n";
 
 $text="written into the Trans-Pacific Partnership (TPP) and other trade agreements being negotiated by the Office of the United States Trade Representative. I oppose “trade” policies that are developed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical drug patents, restrict internet freedoms, and create a legal framework for companies to sue nations over potential profit loss.
