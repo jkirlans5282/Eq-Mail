@@ -102,8 +102,7 @@ var_dump($json);
 
 //////HTML//////
 
-
-  <head>
+ <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -121,22 +120,21 @@ var_dump($json);
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <div id="one"><tr><td> item </td><td> value </td></tr></div>
-    <td>
+    <table style="width:100%">
+    <tr id="one"><td> item </td><td> value </td></tr>
+    <tr id="two"><td> item </td><td> value </td></tr>
+    <tr id="three"><td> item </td><td> value </td></tr>
+    <tr id="four"><td> item </td><td> value </td></tr>
+    <tr id="five"><td> item </td><td> value </td></tr>
+    <tr id="six"><td> item </td><td> value</td></tr>
+    </table>
   </body>
+
+
+
+
+
+
+
 </HTML>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
