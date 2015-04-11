@@ -32,12 +32,20 @@ $messageListResponse = $contextIO->listMessages($user['id'], array('label' => 0,
 $messages = $messageListResponse->getData();
 
 $messageResponse = $contextIO->getMessage($user['id'],
-    array('label' => 0, 'folder' => $folder['[Gmail]/All Mail'], 'message_id' => $messages['email_message_id'], 'addresses' => 'from' => 'email' => $toEmail));
-$messageBodyContent = ($messageResponse->bodies[0]->content);
+    array('label' => 0, 'folder' => $folder['[Gmail]/All Mail'], 'message_id' => $messages['email_message_id'], addresses->to[0]->email => $toEmail));
+	
+$counter=0;
 
 $myFile = "BodyContent.txt";
 $fh = fopen($myFile, 'w') or die("can't open file");
-fwrite($fh, $messageBodyContent);
+	
+while($messageResponse)
+{	
+	$messageBodyContent = ($messageResponse->bodies[$counter]->content);
+	fwrite($fh, $messageBodyContent);
+	$counter++;
+}
+
 fclose($fh);
 
 
