@@ -71,7 +71,6 @@ $watsonOutput = exec($command);
 //echo($location."\n");
 var_dump(json_decode($watsonOutput));
 
-
 ?>
 
 <head>
