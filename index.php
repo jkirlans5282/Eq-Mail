@@ -43,6 +43,7 @@ $args = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
+	echo "Message: " .$message['body'][0]['content'];
 	//$messageBodyContent = $message->bodies[$counter]->content;
 	//fwrite($fh, $messageBodyContent);
 }
