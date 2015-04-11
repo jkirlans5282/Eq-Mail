@@ -6,9 +6,12 @@ define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 
 function getContent() {
 
+// instantiate the contextio object
+$contextio = new ContextIO(CONSUMER_KEY, CONSUMER_SECRET);
+
 //create a connect token
 
-$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'http://gmail.com', 'email' => 'prerit.oberai@gmail.com'));
+$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'http://gmail.com', 'email' => 'test@gmail.com'));
 
 //get the redirect url from the response, and direct the user to it
 
@@ -34,7 +37,7 @@ $messageListResponse = $contextIO->listMessages($user['id'], array('label' => 0,
 $messages = $messageListResponse->getData();
 
 $messageResponse = $contextIO->getMessage($user['id'],
-    array('label' => 0, 'folder' => $folder['[Gmail]/All Mail'], 'message_id' => $messages['email_message_id'], addresses->to[0]->email => $toEmail));
+    array('label' => 0, 'folder' => $folder['[Gmail]/All Mail'], 'message_id' => $messages['email_message_id'], $messages->addresses->to[0]->email => $toEmail));
 	
 $counter=0;
 
@@ -44,7 +47,7 @@ $fh = fopen($myFile, 'w') or die("can't open file");
 while($messageResponse)
 {	
 	$messageBodyContent = ($messageResponse->bodies[$counter]->content);
-	fwrite($fh, $messageBodyContent);H	
+	fwrite($fh, $messageBodyContent);	
 	$counter++;
 }
 
