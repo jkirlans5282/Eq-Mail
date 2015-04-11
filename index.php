@@ -66,37 +66,6 @@ $watsonOutput = exec($command);
 var_dump(json_decode($watsonOutput));
 
 
-#top 5 traits as number 0-100
-$colorOne=90;
-$colorTwo=80;
-$colorThree=70;
-$colorFour=60;
-$colorFive=50;
-
-$colors = array(
-$colorOne,
-$colorTwo,
-$colorThree,
-$colorFour,
-$colorFive,
-);
-foreach($colors as &$color){
-	if($color>70){
-		$color="#00FF00";
-	}else if($color>50){
-		$color="#0000FF";
-	}
-	else{
-		$color = "#FF0000";
-	}
-}
-//echo("#one:{color:".$colors[0]);
-//echo("#two:{color:".$colors[1]);
-//echo("#three:{color:".$color[2]);
-//echo("#four:{color:".$color[3]);
-//echo("#five:{color:".$color[4]);
-
-
 ?>
 
 <head>
@@ -124,16 +93,16 @@ foreach($colors as &$color){
 		<h2>Self enhancement</h2>
 		<p>Seeks personal success for themselves.</p>
 		
-		<h2>Excitement-Seeking</h2>
+		<h2 id ="Excitement-Seeking">Excitement-Seeking</h2>
 		<p>Is easily bored without high levels of stimulation.</p>
 		
-		<h2>Challenge</h2>
+		<h2 id="Challenge">Challenge</h2>
 		<p>Has a readiness to challenge authority, convention, and traditional values.</p>
 		
-		<h2>Practicality</h2>
+		<h2 id="Practicality">Practicality</h2>
 		<p>Has a desire to get the job done and a desire for skill and efficiency.</p>
 		
-		<h2>Curiosity</h2>
+		<h2 id="Curiosity">Curiosity</h2>
 		<p>Has a desire to discover, find out, and grow.</p>
 		
 
@@ -141,38 +110,38 @@ foreach($colors as &$color){
 
 	<h1>Approchability</h1>
 	<div>
-		<h2 id = "Structure" >Structure</h2>
+		<h2 id = "Structure">Structure</h2>
 		<p>They need things to be well organized and under control.</p>
 		
-		<h2>Orderliness</h2>
+		<h2 id = "Orderliness">Orderliness</h2>
 		<p>Is well-organized, tidy, and neat.</p>
 		
-		<h2>Intellect</h2>
+		<h2 id ="Intellect">Intellect</h2>
 		<p>Is intellectually curious and tend to think in symbols and abstractions.</p>
 		
-		<h2>Emotionality</h2>
+		<h2 id = "Emotionality">Emotionality</h2>
 		<p>Has good access to and awareness of their own feelings.</p>
 		
-		<h2>Openness To Change</h2>
+		<h2 id = "Openness_To_Change">Openness To Change</h2>
 		<p>Emphasizes independent action, thought, and feeling, as well as a readiness for new experiences.</p>
 		
 	</div>
 
 	<h1>Emotional traits</h1>
 	<div>
-		<h2>Fiery</h2>
+		<h2 id ="Fiery">Fiery</h2>
 		<p>Has a tendency to feel angry.</p>
 		
-		<h2>Susceptible to stress</h2>
+		<h2 id = "Susceptible_To_Stress">Susceptible To Stress</h2>
 		<p>Has difficulty coping with stress. They experience panic, confusion, and helplessness when under pressure.</p>
 		
-		<h2>Authority Challenging</h2>
+		<h2 id ="Authority_Challenging">Authority Challenging</h2>
 		<p>Has a readiness to challenge authority, convention, and traditional values.</p>
 		
-		<h2>Cooperation</h2>
+		<h2 id = "Cooperation">Cooperation</h2>
 		<p>Dislikes confrontation. They are perfectly willing to compromise or to deny their own needs to get along with others.</p>
 		
-		<h2>Trust</h2>
+		<h2 id = "Trust">Trust</h2>
 		<p>Assumes that most people are fundamentally fair, honest, and have good intentions.</p>
 		
 	</div>
