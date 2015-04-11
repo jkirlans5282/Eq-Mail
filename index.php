@@ -1,5 +1,4 @@
 #!/usr/bin/php
-<HTML>
 <?php
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -98,10 +97,8 @@ $json = json_decode($watsonOutput);
 var_dump($json);
 
 
-
-
-//////HTML//////
-
+?>
+<HTML>
  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -137,4 +134,3 @@ var_dump($json);
 
 
 </HTML>
-?>
