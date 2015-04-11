@@ -3,6 +3,7 @@
 
 define('CONSUMER_KEY', '6bbaozd7');
 define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
+include_once("class.contextio.php");
 
 function getContent() {
 
