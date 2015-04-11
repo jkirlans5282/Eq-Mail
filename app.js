@@ -1,6 +1,6 @@
 Watson credentials
 
-{
+var credentials = {
   "personality_insights": [
     {
       "name": "Personality Insights-rh",
@@ -14,3 +14,6 @@ Watson credentials
     }
   ]
 }
+
+var personalityInsights = new watson.personality_insights(credentials);
+
