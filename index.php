@@ -44,8 +44,6 @@ foreach ($r->getData() as $message) {
 // EXAMPLE 2
 // Print the Data  of the last 100 emails sent from with bill@widgets.com
 
-$fh = fopen($myFile, 'w') or die("can't open file");
-
 $args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
