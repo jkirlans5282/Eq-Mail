@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
 <?php
-$red='#BC4A54';
+//$red='#BC4A54';
 $lightRed='#E37D87';
-$yellow='#C2AE4C';
+//$yellow='#C2AE4C';
 $lightYellow='#EBD982';
-$green='#3A934D';
+//$green='#3A934D';
 $lightGreen='#62B274';
 
 
@@ -51,6 +51,7 @@ foreach ($r->getData() as $message) {
 $args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 //echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
+echo($r);
 foreach ($r->getData() as $message) {
 	//print_r($message);
 	//echo "Message: " .$message['body'][0]['content'];
@@ -59,7 +60,7 @@ foreach ($r->getData() as $message) {
 	
 echo "\nall examples finished\n";
 
-$text="Extending pharmaceutical patents beyond the current 20 years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, then on R&D, it is foolish to further desincentivize the advancement of life saving drugs. We need more effective drugs not more expensive ones. These high costs will also prevent the proliferation of these drugs in impoverished nations and locales where they are needed most."; //where text is the output of the context.io pull
+$text="Extending pharmaceutical patents beyond the current 20 the quick brown fox jumped over the lazy dog years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, then on R&D, it is foolish to further desincentivize the advancement of life saving drugs. We need more effective drugs not more expensive ones. These high costs will also prevent the proliferation of these drugs in impoverished nations and locales where they are needed most."; //where text is the output of the context.io pull
 
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
@@ -69,7 +70,8 @@ $watsonOutput = exec($command);
 //echo($output);
 //echo("\n");
 //echo($location."\n");
-var_dump(json_decode($watsonOutput));
+$watsonOutput = json_decode($watsonOutput, true);
+echo($watsonOutput['tree']['children']['id']);
 
 ?>
 
