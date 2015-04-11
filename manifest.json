@@ -1,0 +1,13 @@
+{
+	"manifest_version":2,
+	"name":"On The Issues",
+	"description":"This extension allows you to quickly browse the voting records of politcians",
+	"version":"1.0",
+	"browser_action":{
+		"default_icon":"icon.png",
+		"default_popup":"popup.html"
+	},
+	"permissions":[
+	"activeTab"
+	]
+}
