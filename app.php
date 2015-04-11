@@ -1,6 +1,5 @@
 <?php
 // define your API key and secret - find this https://console.context.io/#settings
-
 define('CONSUMER_KEY', '6bbaozd7');
 define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 require_once '/class.contextio.php';
