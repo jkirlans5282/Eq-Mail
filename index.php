@@ -77,13 +77,14 @@
 	</div>
 </aside>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
   <script src="js/index.js"></script>
 
 </body>
 
 </html>
+
 <?php
 
 // remove first line above if you're not running these examples through PHP CLI
