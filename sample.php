@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+echo "hello world";
 function contextio(){
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -17,15 +18,31 @@ foreach ($r->getData() as $account) {
 if (is_null($accountId)) {
 	die;
 }
+// Get the most recent drafts message reciepient
+$messageListResponseDrafts = $contextIO->listMessages($user['id'], array('label' => 0, 'folder' => $folder['[Gmail]/Drafts']));
+$messagesDrafts = $messageListResponseDrafts->getData();
+$messageRecent= $messagesDrafts[0];
+$toEmail= $messageRecent->addresses->to[0]->email;
+
 // EXAMPLE 1
-// Print the subject line of the last 20 emails sent to with bill@widgets.com
-$args = array('to'=>'bill@widgets.com', 'limit'=>20);
-echo "\nGetting last 20 messages exchanged with {$args['to']}\n";
+// Print the subject line of the last 100 emails sent to with bill@widgets.com
+$args = array('to'=>$toEmail, 'limit'=>100);
+echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
 	echo "Subject: ".$message['subject']."\n";
 }
+
 // EXAMPLE 2
+// Print the Data  of the last 100 emails sent to with bill@widgets.com
+$args = array('to'=>$toEmail, 'limit'=>100);
+echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
+$r = $contextIO->listMessages($accountId, $args);
+foreach ($r->getData() as $message) {
+	echo "Message: ".$message['bodies']."\n";
+}
+
+// EXAMPLE 3
 // Download all versions of the last 2 attachments exchanged with bill@widgets.com
 $saveToDir = dirname(__FILE__)."/".mt_rand(100,999);
 mkdir($saveToDir);
@@ -40,7 +57,7 @@ foreach ($r->getData() as $document) {
 		echo "done\n";
 	}
 }
-// EXAMPLE 3
+// EXAMPLE 4
 // Download all attachments with a file name that matches 'creenshot'
 $saveToDir = dirname(__FILE__)."/".mt_rand(100,999);
 mkdir($saveToDir);
@@ -53,7 +70,6 @@ foreach ($r->getData() as $attachment) {
 	echo "done\n";
 }
 echo "\nall examples finished\n";
-echo "hello world"
 }
 
 
