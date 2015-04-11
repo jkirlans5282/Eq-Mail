@@ -1,12 +1,14 @@
+<?php
 // define your API key and secret - find this https://console.context.io/#settings
 
 define('CONSUMER_KEY', '6bbaozd7');
 define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 
+function getContent() {
 
 //create a connect token
 
-$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'http://gmail.com', 'email' => 'test@gmail.com'));
+$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'http://gmail.com', 'email' => 'prerit.oberai@gmail.com'));
 
 //get the redirect url from the response, and direct the user to it
 
@@ -42,13 +44,17 @@ $fh = fopen($myFile, 'w') or die("can't open file");
 while($messageResponse)
 {
 	$messageBodyContent = ($messageResponse->bodies[$counter]->content);
-	fwrite($fh, $messageBodyContent);
+	fwrite($fh, $messageBodyContent);H	
 	$counter++;
 }
 
 fclose($fh);
 
+echo "Hello world!";
 
+}
+
+getContent();
 
 $curl = curl_init();
 curl_setopt_array($curl, array(
@@ -64,5 +70,3 @@ curl_setopt_array($curl, array(
     )
 ));
 $result = curl_exec($curl);
-
-
