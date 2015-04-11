@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 <!DOCTYPE html>
 <html>
 
@@ -84,7 +83,6 @@
 </body>
 
 </html>
->>>>>>> Stashed changes
 <?php
 
 // remove first line above if you're not running these examples through PHP CLI
@@ -133,8 +131,6 @@ foreach ($r->getData() as $message) {
 	//echo "Message: " .$message['body'][0]['content'];
 	$text = $message['body'][0]['content'];
 }
-<<<<<<< Updated upstream
-=======
 	
 fclose($fh);
 
@@ -142,7 +138,6 @@ fclose($fh);
 echo "\nall examples finished\n";
 
 $text=""; //where text is the output of the context.io pull
->>>>>>> Stashed changes
 
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
@@ -187,39 +182,3 @@ foreach($colors as &$color){
 
 
 ?>
-<HTML>
- <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <table style="width:100%">
-    <tr id="one"><td> item </td><td> value </td></tr>
-    <tr id="two"><td> item </td><td> value </td></tr>
-    <tr id="three"><td> item </td><td> value </td></tr>
-    <tr id="four"><td> item </td><td> value </td></tr>
-    <tr id="five"><td> item </td><td> value </td></tr>
-    <tr id="six"><td> item </td><td> value</td></tr>
-    </table>
-  </body>
-
-
-
-
-
-
-
-</HTML>
