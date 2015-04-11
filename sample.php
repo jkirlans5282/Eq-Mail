@@ -79,6 +79,26 @@ Extending pharmaceutical patents beyond the current 20 years will prevent generi
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Cookie: Watson-DPAT=UmxwUnA5QTRyN2xYMGlXZFdsWU5KcjZTVXJ4Sld1SU1tbnEvMTduYmszMXM1QnUzdkZhOU5RU2ZtbFZ3ZGZIQWRVQnFsSmhYMkliMjltOXRjVnlNS3JRMXdJU25mL2k3V0k0UGVYODVDcHMwT29DOWZoZDdxVnhPcDBYemluTk42MDJKK0hDcWt4TjVEeVlCSDVMM1FJQy9nSHA1VnZaanYrL2pjalFoU0tUR2VXWUJaZzNYeVk3UE1MMkR1UUpZMW1abmdCR3F2S2ZhOUlnK1gxaTl4QTgwdTBKNUJLclQ3Y1MxL09aRXl1aUVMYzJjbjZ3dUhnZFBXQnlwcnBXUjVEWXBKL1VVL0JqQXhIRDJGTy9EeGFsNHNBbjZKTnBLZHJwWjVBd1EyTFo3OXpSalJ6ZXM2dTQ0cVErb3o4V0puWGFyMUdTQ05HSEI4dm9ka0ptQTVEZ3FUTVRaODJXTHBPeEU2a1Q1V0UwPQ==' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
-$watsonOutput = json_decode($output);
-//var_dump(json_decode($output));
+//$location = strpos ($output , '{');
+//echo($output);
+//echo("\n");
+//echo($location."\n");
+$json = json_decode($watsonOutput);
+var_dump($json);
+
+<p>hello</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
