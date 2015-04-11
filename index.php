@@ -18,6 +18,7 @@ foreach ($r->getData() as $account) {
 if (is_null($accountId)) {
 	die;
 }
+/*$toEmail='';
 // Get the most recent drafts message reciepient
 $draftsArgs = array('folder'=>'Drafts', 'limit'=>100);
 $s = $contextIO->listMessages($accountId, $draftsArgs);
@@ -26,7 +27,7 @@ foreach ($s->getData() as $messageDraft) {
 	$toEmail=$messageDraft['to'];
 }
 //$toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->email;
-
+*/
 
 // Print the subject line of the last 100 emails sent from with bill@widgets.com
 $args = array('from'=>$toEmail, 'limit'=>100);
