@@ -1,30 +1,5 @@
+#!/usr/bin/php
 
-<HTML>
- <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-   	<ul class="list-group">
-  		<li class="list-group-item">Approachability</li>
-  		<li class="list-group-item">Motivation</li>
- 		<li class="list-group-item">Emotional Traits</li>
-	</ul>
-  </body>
-</HTML>
 <?php
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -44,14 +19,13 @@ if (is_null($accountId)) {
 	die;
 }
 // Get the most recent drafts message reciepient
-$draftsArgs = array('folder'=>'Drafts', 'limit'=>1);
+$draftsArgs = array('folder'=>'Drafts', 'limit'=>100);
 $s = $contextIO->listMessages($accountId, $draftsArgs);
 foreach ($s->getData() as $messageDraft) {
-	echo "Subject: ".$message['subject']."\n";
+	echo "toEmail: ".$messageDraft['to']."\n";
+	$toEmail=$messageDraft['to'];
 }
-$messageRecent= $messagesDrafts[0];
-*/
-$toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->email;
+//$toEmail= 'jacobkirlanstout@gmail.com';  // $messageRecent->addresses->to[0]->email;
 
 
 // Print the subject line of the last 100 emails sent from with bill@widgets.com
@@ -129,3 +103,39 @@ foreach($colors as &$color){
 
 
 ?>
+<HTML>
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <table style="width:100%">
+    <tr id="one"><td> item </td><td> value </td></tr>
+    <tr id="two"><td> item </td><td> value </td></tr>
+    <tr id="three"><td> item </td><td> value </td></tr>
+    <tr id="four"><td> item </td><td> value </td></tr>
+    <tr id="five"><td> item </td><td> value </td></tr>
+    <tr id="six"><td> item </td><td> value</td></tr>
+    </table>
+  </body>
+
+
+
+
+
+
+
+</HTML>
