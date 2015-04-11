@@ -51,9 +51,6 @@ foreach ($r->getData() as $message) {
 	$text = $message['body'][0]['content'];
 }
 	
-fclose($fh);
-
-
 echo "\nall examples finished\n";
 
 $text=""; //where text is the output of the context.io pull
