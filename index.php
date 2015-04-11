@@ -39,13 +39,12 @@ foreach ($r->getData() as $message) {
 $myFile = "BodyContent.txt";
 $fh = fopen($myFile, 'w') or die("can't open file");
 
-$args = array('to'=>$toEmail, 'limit'=>100);
+$args = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
-	echo "Message: " .$message->bodies[$r]->content;
-	$messageBodyContent = $message->bodies[$counter]->content;
-	fwrite($fh, $messageBodyContent);
+	//$messageBodyContent = $message->bodies[$counter]->content;
+	//fwrite($fh, $messageBodyContent);
 }
 	
 fclose($fh);
