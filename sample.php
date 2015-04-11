@@ -70,6 +70,10 @@ foreach ($r->getData() as $attachment) {
 	echo "done\n";
 }
 echo "\nall examples finished\n";
+<<<<<<< Updated upstream
+=======
+echo "hello world";
+>>>>>>> Stashed changes
 }
 
 
