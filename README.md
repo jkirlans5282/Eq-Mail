@@ -15,3 +15,5 @@ http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/index.
 
 Twitter script:
 https://gist.github.com/yanofsky/5436496
+
+Website: apccurtiss.me
