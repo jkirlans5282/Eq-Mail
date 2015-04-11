@@ -125,13 +125,13 @@ foreach ($r->getData() as $message) {
 // EXAMPLE 2
 // Print the Data  of the last 100 emails sent from with bill@widgets.com
 
-$args = array('from'=>$toEmail, 'limit'=>10, 'include_body'=>1);
-echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+$args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
+//echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
 	//print_r($message);
-	echo "Message: " .$message['body'][0]['content'];
-	//$text = $message['body'][0]['content'];
+	//echo "Message: " .$message['body'][0]['content'];
+	$text = $message['body'][0]['content'];
 }
 <<<<<<< Updated upstream
 =======
