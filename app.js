@@ -1,5 +1,3 @@
-Watson credentials
-
 var credentials = {
   "personality_insights": [
     {
@@ -16,4 +14,5 @@ var credentials = {
 }
 //full contact
 var personalityInsights = new watson.personality_insights(credentials);
-document.write(personalityInsights)
+document.write(Date());
+

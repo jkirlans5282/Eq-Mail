@@ -1,7 +1,7 @@
 {
 	"manifest_version":2,
-	"name":"On The Issues",
-	"description":"This extension allows you to quickly browse the voting records of politcians",
+	"name":"personal Emails",
+	"description":"emails",
 	"version":"1.0",
 	"browser_action":{
 		"default_icon":"icon.png",
