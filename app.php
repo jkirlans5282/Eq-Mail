@@ -1,3 +1,4 @@
+<?php
 // define your API key and secret - find this https://console.context.io/#settings
 
 define('CONSUMER_KEY', '6bbaozd7');
@@ -49,7 +50,11 @@ while($messageResponse)
 
 fclose($fh);
 
+echo "Hello world!";
+
 }
 
+getContent();
 
+?>
 
