@@ -1,4 +1,32 @@
-#!/usr/bin/php
+
+<HTML>
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <table style="width:100%">
+    <tr id="one"><td> Agreeableness </td><td> value </td></tr>
+    <tr id="two"><td> Conscientiousness </td><td> value </td></tr>
+    <tr id="three"><td> Extraversion </td><td> value </td></tr>
+    <tr id="four"><td> Emotional Range </td><td> value </td></tr>
+    <tr id="five"><td> Openness </td><td> value </td></tr>
+    </table>
+  </body>
+</HTML>
 <?php
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -125,31 +153,3 @@ echo("#five:{color:".$color[4]);
 
 
 ?>
-<HTML>
- <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <table style="width:100%">
-    <tr id="one"><td> Agreeableness </td><td> value </td></tr>
-    <tr id="two"><td> Conscientiousness </td><td> value </td></tr>
-    <tr id="three"><td> Extraversion </td><td> value </td></tr>
-    <tr id="four"><td> Emotional Range </td><td> value </td></tr>
-    <tr id="five"><td> Openness </td><td> value </td></tr>
-    </table>
-  </body>
-</HTML>
