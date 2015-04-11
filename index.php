@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 <HTML>
  <head>
@@ -28,10 +27,6 @@
     </table>
   </body>
 </HTML>
-=======
-#!/usr/bin/php
-
->>>>>>> origin/master
 <?php
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
