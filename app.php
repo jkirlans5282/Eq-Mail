@@ -3,9 +3,10 @@
 define('CONSUMER_KEY', '6bbaozd7');
 define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 
+
 //create a connect token
 
-$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'http://yourcallback.com', 'email' => 'test@gmail.com'));
+$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'http://gmail.com', 'email' => 'test@gmail.com'));
 
 //get the redirect url from the response, and direct the user to it
 
@@ -19,12 +20,26 @@ $userListResponse = $contextIO->listusers();
 $users = $userListResponse->getData();
 $user = $users[0];
 
-//list folders for that user - 0 is an alias for the first email account of that user
-$folderListResponse = $contextIO->listEmailAccountFolders($user['id'], '0');
-print_r($folderListResponse);
 
-//get list of messages from a folder
-$messageListResponse = $contextIO->listMessages($user['id'], array('label' => 0, 'folder' => $folder['name']));
+//get most recent message from the drafts  folder
+$messageListResponseDrafts = $contextIO->listMessages($user['id'], array('label' => 0, 'folder' => $folder['[Gmail]/Drafts']));
+$messagesDrafts = $messageListResponseDrafts->getData();
+$messageRecent= $messagesDrafts[0];
+$toEmail= $messageRecent->addresses->to[0]->email;
+
+//get list of messages from "ALL MAIL" folder
+$messageListResponse = $contextIO->listMessages($user['id'], array('label' => 0, 'folder' => $folder['[Gmail]/All Mail']));
 $messages = $messageListResponse->getData();
-print_r($messages);
+
+$messageResponse = $contextIO->getMessage($user['id'],
+    array('label' => 0, 'folder' => $folder['[Gmail]/All Mail'], 'message_id' => $messages['email_message_id'], 'addresses' => 'from' => 'email' => $toEmail));
+$messageBodyContent = ($messageResponse->bodies[0]->content);
+
+$myFile = "BodyContent.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, $messageBodyContent);
+fclose($fh);
+
+
+
 
