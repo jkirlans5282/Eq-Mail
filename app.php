@@ -33,14 +33,14 @@ $messages = $messageListResponse->getData();
 
 $messageResponse = $contextIO->getMessage($user['id'],
     array('label' => 0, 'folder' => $folder['[Gmail]/All Mail'], 'message_id' => $messages['email_message_id'], addresses->to[0]->email => $toEmail));
-	
+
 $counter=0;
 
 $myFile = "BodyContent.txt";
 $fh = fopen($myFile, 'w') or die("can't open file");
-	
+
 while($messageResponse)
-{	
+{
 	$messageBodyContent = ($messageResponse->bodies[$counter]->content);
 	fwrite($fh, $messageBodyContent);
 	$counter++;
@@ -49,5 +49,20 @@ while($messageResponse)
 fclose($fh);
 
 
+
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false',
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS=> array(
+    'Accept':'application/json',
+    'Content-Type':'text/plain',
+    'Accept-Language':'en',
+    'Content-Language':"en',
+    'Authorization':'Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw=='
+    )
+));
+$result = curl_exec($curl);
 
 
