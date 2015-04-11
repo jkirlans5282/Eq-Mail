@@ -9,7 +9,8 @@ Consumer Key (API Key) 0Zf70bCSPETP6CKLsdERfeqHd
 Consumer Secret (API Secret) SWR0hatiISWgw4xNs2nX0iqdiUGxI4tevoEr1shJlndFbkZkgm
 Access Level Read and write
 Owner sethhovestol
-Owner ID 2157936864 
+Owner ID 2157936864
+
 
 Twitter script:
 https://gist.github.com/yanofsky/5436496
