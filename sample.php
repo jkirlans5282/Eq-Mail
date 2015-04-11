@@ -1,6 +1,5 @@
 #!/usr/bin/php
 <?php
-echo "hello world";
 function contextio(){
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -70,15 +69,16 @@ foreach ($r->getData() as $attachment) {
 	echo "done\n";
 }
 echo "\nall examples finished\n";
-<<<<<<< Updated upstream
-=======
-echo "hello world";
->>>>>>> Stashed changes
 }
 
 
-contextio();
+//contextio();
+$text="written into the Trans-Pacific Partnership (TPP) and other trade agreements being negotiated by the Office of the United States Trade Representative. I oppose “trade” policies that are developed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical drug patents, restrict internet freedoms, and create a legal framework for companies to sue nations over potential profit loss.
+Extending pharmaceutical patents beyond the current 20 years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, the"; //where text is the output of the context.io pull
 
-$output = shell_exec("curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Cookie: Watson-DPAT=SjN4c0RUS2FnMHB0QWdhcDl5WUV5ejdFc2RSRDZBN0hVRjFTanAwenpCdTlZeHF3UmZrMzNzeEVodHV4a25pWGRlREtPVXZDZDZMODIydXNoc2lyZmNReDUwUmJpOFh6djNOTk54TVlYMXVxTTZlOE1kYitqNTNzVm1qbXJLOSt3SnhNczZMNmdWejVVNTRWNmhBZXRQM2R6MXVxUGs3MGJDbjZNaDJENXJRWTFOenp1KytSZms3bDc4ZStCVlFEcFpQQXVRWjNwbk1ETTA2d2tNNVBxUEJkN3VZdkYraDNoTjV4dUpyTm5IY3Y1V1RscFBqKzhaUFZ2UmZxQzh5dFpJeHRmdkJ6UEdwUGFRN0ViQ0xJeU1COG96SmJNbkY2VUdOWmVBVTdPTWdKZ3JFZUxVRDIzRTlFc3U4K2xwRW4yYmpES0p4ZmtiMUFDU0hVM2tHclhNb0hkakplaG0ycEpseG92VVo4bS9BPQ==' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary $'As a constituent, consumer, and tech user, I am deeply concerned about the provisions that are being written into the Trans-Pacific Partnership (TPP) and other trade agreements being negotiated by the Office of the United States Trade Representative. I oppose \u201ctrade\u201d policies that are developed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical drug patents, restrict internet freedoms, and create a legal framework for companies to sue nations over potential profit loss.f user created content which TPP seeks to destroy. For more information and arguments which are presented better then mine check out www.citizens.org and www.eff.org' --compressed");
-echo(output);
+$watsonString= "$'".$text."'";
+$command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Cookie: Watson-DPAT=UmxwUnA5QTRyN2xYMGlXZFdsWU5KcjZTVXJ4Sld1SU1tbnEvMTduYmszMXM1QnUzdkZhOU5RU2ZtbFZ3ZGZIQWRVQnFsSmhYMkliMjltOXRjVnlNS3JRMXdJU25mL2k3V0k0UGVYODVDcHMwT29DOWZoZDdxVnhPcDBYemluTk42MDJKK0hDcWt4TjVEeVlCSDVMM1FJQy9nSHA1VnZaanYrL2pjalFoU0tUR2VXWUJaZzNYeVk3UE1MMkR1UUpZMW1abmdCR3F2S2ZhOUlnK1gxaTl4QTgwdTBKNUJLclQ3Y1MxL09aRXl1aUVMYzJjbjZ3dUhnZFBXQnlwcnBXUjVEWXBKL1VVL0JqQXhIRDJGTy9EeGFsNHNBbjZKTnBLZHJwWjVBd1EyTFo3OXpSalJ6ZXM2dTQ0cVErb3o4V0puWGFyMUdTQ05HSEI4dm9ka0ptQTVEZ3FUTVRaODJXTHBPeEU2a1Q1V0UwPQ==' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
+$watsonOutput = exec($command);
+$watsonOutput = json_decode($output);
+//var_dump(json_decode($output));
 ?>
