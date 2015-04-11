@@ -1,5 +1,4 @@
 #!/usr/bin/php
-
 <?php
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -118,11 +117,11 @@ foreach($colors as &$color){
 		$color = "#FF0000";
 	}
 }
-//echo("#one:{color:".$colors[0]);
-//echo("#two:{color:".$colors[1]);
-//echo("#three:{color:".$color[2]);
-//echo("#four:{color:".$color[3]);
-//echo("#five:{color:".$color[4]);
+echo("#one:{color:".$colors[0]);
+echo("#two:{color:".$colors[1]);
+echo("#three:{color:".$color[2]);
+echo("#four:{color:".$color[3]);
+echo("#five:{color:".$color[4]);
 
 
 ?>
@@ -146,19 +145,11 @@ foreach($colors as &$color){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <table style="width:100%">
-    <tr id="one"><td> item </td><td> value </td></tr>
-    <tr id="two"><td> item </td><td> value </td></tr>
-    <tr id="three"><td> item </td><td> value </td></tr>
-    <tr id="four"><td> item </td><td> value </td></tr>
-    <tr id="five"><td> item </td><td> value </td></tr>
-    <tr id="six"><td> item </td><td> value</td></tr>
+    <tr id="one"><td> Agreeableness </td><td> value </td></tr>
+    <tr id="two"><td> Conscientiousness </td><td> value </td></tr>
+    <tr id="three"><td> Extraversion </td><td> value </td></tr>
+    <tr id="four"><td> Emotional Range </td><td> value </td></tr>
+    <tr id="five"><td> Openness </td><td> value </td></tr>
     </table>
   </body>
-
-
-
-
-
-
-
 </HTML>
