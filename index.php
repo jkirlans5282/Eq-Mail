@@ -16,7 +16,11 @@
 
   <link href='http://fonts.googleapis.com/css?family=News+Cycle:400,700' rel='stylesheet' type='text/css'>
 <link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
-
+<style type="text/css">
+	#Structure{
+		background-color: <?=$black?>;
+	}
+</style>
 <aside class="accordion">
 	<h1>Motivation</h1>
 	<div class="opened-for-codepen">
@@ -40,7 +44,7 @@
 
 	<h1>Approchability</h1>
 	<div>
-		<h2>Structure</h2>
+		<h2 id = "Structure" >Structure</h2>
 		<p>They need things to be well organized and under control.<\p>
 		
 		<h2>Orderliness</h2>
@@ -86,6 +90,8 @@
 </html>
 
 <?php
+//header("Content-type:text/css");
+$black='#000';
 
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
