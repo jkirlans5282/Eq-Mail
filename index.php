@@ -25,19 +25,19 @@
 	<h1>Motivation</h1>
 	<div class="opened-for-codepen">
 		<h2>Self enhancement</h2>
-		<p>Seeks personal success for themselves.<\p>
+		<p>Seeks personal success for themselves.</p>
 		
 		<h2>Excitement-Seeking</h2>
-		<p>Is easily bored without high levels of stimulation.<\p>
+		<p>Is easily bored without high levels of stimulation.</p>
 		
 		<h2>Challenge</h2>
-		<p>Has a readiness to challenge authority, convention, and traditional values.<\p>
+		<p>Has a readiness to challenge authority, convention, and traditional values.</p>
 		
 		<h2>Practicality</h2>
-		<p>Has a desire to get the job done and a desire for skill and efficiency.<\p>
+		<p>Has a desire to get the job done and a desire for skill and efficiency.</p>
 		
 		<h2>Curiosity</h2>
-		<p>Has a desire to discover, find out, and grow.<\p>
+		<p>Has a desire to discover, find out, and grow.</p>
 		
 
 	</div>
