@@ -18,13 +18,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <table style="width:100%">
-    <tr id="one"><td> Agreeableness </td><td> value </td></tr>
-    <tr id="two"><td> Conscientiousness </td><td> value </td></tr>
-    <tr id="three"><td> Extraversion </td><td> value </td></tr>
-    <tr id="four"><td> Emotional Range </td><td> value </td></tr>
-    <tr id="five"><td> Openness </td><td> value </td></tr>
-    </table>
+   	<ul class="list-group">
+  		<li class="list-group-item">Approachability</li>
+  		<li class="list-group-item">Motivation</li>
+ 		<li class="list-group-item">Emotional Traits</li>
+	</ul>
   </body>
 </HTML>
 <?php
