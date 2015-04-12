@@ -145,7 +145,7 @@ foreach ($r2->getData() as $messageSent) {
 	<div class="opened-for-codepen">
 		<h2 id = "Self_Enhancement">
 			<span style = "float: left">Self Enhancement</span>
-			<span style = "float: right">$traits["Self_Enhancement"]</span>
+			<span style = "float: right"><?=$traits["Self_Enhancement"]<?></span>
 		</h2>
 		<p>Seeks personal success for themselves.</p>
 		
