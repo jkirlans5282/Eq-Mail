@@ -78,7 +78,7 @@ $watsonOutput = exec($command);
 		}
 	try {
 $watsonOutput = json_decode($watsonOutput, true);
-$traits = array(
+$traits = array( 
 				"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['children'][3]['percentage'], //self-enhancement
 				"Excitement_Seeking" => $watsonOutput['tree']['children'][0]['children'][0]['children'][2]['children'][3]['percentage'], //excitement seeking
 				"Challenge" => $watsonOutput['tree']['children'][1]['children'][0]['children'][0]['percentage'],
