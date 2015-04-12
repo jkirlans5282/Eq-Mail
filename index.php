@@ -48,8 +48,6 @@ foreach ($r->getData() as $message) {
 	//echo "Message: " .$message['body'][0]['content'];
 	$text .= $message['body'][0]['content'];
 }
-	
-echo "\nall examples finished\n";
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
 $watsonString= "$'".$text."'";
@@ -70,15 +68,28 @@ $traits = array(
 				"Fiery" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][0]['percentage'],
 				"Susceptible_To_Stress" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][5]['percentage'],
 				"Authority_Challenging" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][5]['percentage'],
+				"Trust"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][5]['percentage'],
 				"Cooperation"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'],
-				"Trust"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][5]['percentage']
+				"BUllshit"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'] //DO NOT REMOVE
 				);
 foreach($traits as &$trait){
 	$trait*=100;
 	$trait = intval($trait);
-	echo("\n");
-	echo($trait);
 }
+$traitsColors = $traits;
+echo($traits['Trust']);
+
+foreach($traitsColors as &$color){
+	if ($color>=75) {
+		$color = $lightGreen;
+	}elseif($color>25){
+		$color = $lightYellow;
+	}else{
+		//echo($color."\n");
+		$color = $lightRed;
+	}
+}
+echo($traits['Trust']);
 
 
 // Print the subject line of the last 100 emails sent TO contact
@@ -117,25 +128,49 @@ foreach ($r2->getData() as $messageSent) {
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#Self_Enhancement{
-
+		background-color: <?=$traitsColors['Self_Enhancement']?>;
 	}
 	#Excitement_Seeking{
-		background-color: <?=$lightGreen?>;
+		background-color: <?=$traitsColors['Excitement_Seeking']?>;
 	}
 	#Challenge{
-		background-color: <?=$lightRed?>;
+		background-color: <?=$traitsColors['Challenge']?>;
 	}
 	#Practicality{
-		background-color: <?=$lightRed?>;
+		background-color: <?=$traitsColors['Practicality']?>;
 	}
 	#Curiosity{
-		background-color: <?=lightYellow?>;
+		background-color: <?=$traitsColors['Curiosity']?>;
 	}
 	#Structure{
-		background-color: <?=$lightGreen?>;
+		background-color: <?=$traitsColors['Structure']?>;
 	}
 	#Orderliness{
-		background-color: <?=$lightYellow?>
+		background-color:<?=$traitsColors['Orderliness']?>;
+	}
+	#Intellect{
+		background-color:<?=$traitsColors['Intellect']?>;
+	}
+	#Emotionality{
+		background-color:<?=$traitsColors['Emotionality']?>;
+	}
+	#Openness_To_Change{
+		background-color:<?=$traitsColors['Openness_To_Change']?>;
+	}
+	#Fiery{
+		background-color: <?=$traitsColors['Fiery']?>;
+	}
+	#Susceptible_To_Stress{
+		background-color: <?=$traitsColors['Susceptible_To_Stress']?>;
+	}
+	#Authority_Challenging{
+		background-color: <?=$traitsColors['Authority_Challenging']?>;
+	}
+	#Cooperation{
+		background-color: <?=$traitsColors['Cooperation']?>;
+	}
+	#Trust{
+		background-color: <?=$traitsColors['Trust']?>;
 	}
 
 </style>
@@ -143,14 +178,16 @@ foreach ($r2->getData() as $messageSent) {
 	<h1>Motivation</h1>
 	<div class="opened-for-codepen">
 		<h2 id = "Self_Enhancement">
-		<div class="opened-for-codepen">
 			<span style = "float: left">Self Enhancement</span>
 			<span style = "float: right"><?=$traits["Self_Enhancement"]?>%</span>
 		</h2>
-		</div>
 		<p>Seeks personal success for themselves.</p>
 		
-		<h2 id ="Excitement_Seeking">Excitement Seeking</h2>
+		<h2 id ="Excitement_Seeking">
+			<span style = "float: left">Excitement_Seeking</span>
+			<span style = "float: right"><?=$traits["Excitement_Seeking"]?>%</span>
+		</h2>
+
 		<p>Is easily bored without high levels of stimulation.</p>
 		
 		<h2 id="Challenge">
@@ -201,7 +238,7 @@ foreach ($r2->getData() as $messageSent) {
 		<p>Has good access to and awareness of their own feelings.</p>
 		
 		<h2 id = "Openness_To_Change">
-			<span style = "float: left">Openness_To_Change</span>
+			<span style = "float: left">Openness to change</span>
 			<span style = "float: right"><?=$traits["Openness_To_Change"]?>%</span>
 		</h2>
 		<p>Emphasizes independent action, thought, and feeling, as well as a readiness for new experiences.</p>
@@ -210,20 +247,40 @@ foreach ($r2->getData() as $messageSent) {
 
 	<h1>Emotional traits</h1>
 	<div>
-		<h2 id ="Fiery">Fiery</h2>
+		<h2 id ="Fiery">
+			<span style = "float: left">Fiery</span>
+			<span style = "float: right"><?=$traits["Fiery"]?>%</span>
+		</h2>
 		<p>Has a tendency to feel angry.</p>
 		
-		<h2 id = "Susceptible_To_Stress">Susceptible To Stress</h2>
+		<h2 id = "Susceptible_To_Stress">
+			<span style = "float: left">Susceptible to stress</span>
+			<span style = "float: right"><?=$traits["Susceptible_To_Stress"]?>%</span>
+		</h2>
 		<p>Has difficulty coping with stress. They experience panic, confusion, and helplessness when under pressure.</p>
 		
-		<h2 id ="Authority_Challenging">Authority Challenging</h2>
+		<h2 id ="Authority_Challenging">
+			<span style = "float: left">Authority Challenging</span>
+			<span style = "float: right"><?=$traits["Authority_Challenging"]?>%</span>
+		</h2>
 		<p>Has a readiness to challenge authority, convention, and traditional values.</p>
 		
-		<h2 id = "Cooperation">Cooperation</h2>
+		<h2 id = "Cooperation">
+			<span style = "float: left">Cooperation</span>
+			<span style = "float: right"><?=$traits["Cooperation"]?>%</span>
+		</h2>
+		
 		<p>Dislikes confrontation. They are perfectly willing to compromise or to deny their own needs to get along with others.</p>
 		
-		<h2 id = "Trust">Trust</h2>
+		<h2 id = "Trust">
+			<span style = "float: left">Trust</span>
+			<span style = "float: right"><?=$traits["Trust"]?>%</span>
+		</h2>
+
 		<p>Assumes that most people are fundamentally fair, honest, and have good intentions.</p>
+
+
+
 		
 	</div>
 </aside>
