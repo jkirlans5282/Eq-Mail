@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <?php
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+    echo $_GET['email']."\n";
+}
 //$red='#BC4A54';
 $lightRed='#E37D87';
 //$yellow='#C2AE4C';
@@ -29,7 +32,7 @@ if (is_null($accountId)) {
 $toEmail='';
 // Get the most recent drafts message reciepient
 
-$toEmail= 'jacobkirlanstout@gmail.com';
+$toEmail= $_GET['email'];//'jacobkirlanstout@gmail.com';
 // Print the subject line of the last 100 emails sent from with bill@widgets.com
 $args = array('from'=>$toEmail, 'limit'=>100);
 $r = $contextIO->listMessages($accountId, $args);
@@ -50,6 +53,7 @@ foreach ($r->getData() as $message) {
 }
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
+echo($text);
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
@@ -77,7 +81,6 @@ foreach($traits as &$trait){
 	$trait = intval($trait);
 }
 $traitsColors = $traits;
-echo($traits['Trust']);
 
 foreach($traitsColors as &$color){
 	if ($color>=75) {
@@ -89,7 +92,6 @@ foreach($traitsColors as &$color){
 		$color = $lightRed;
 	}
 }
-echo($traits['Trust']);
 
 
 // Print the subject line of the last 100 emails sent TO contact
@@ -171,6 +173,7 @@ foreach ($r2->getData() as $messageSent) {
 	}
 	#Trust{
 		background-color: <?=$traitsColors['Trust']?>;
+		border-radius: 0 0 10px 10px;
 	}
 
 </style>
@@ -184,7 +187,7 @@ foreach ($r2->getData() as $messageSent) {
 		<p>Seeks personal success for themselves.</p>
 		
 		<h2 id ="Excitement_Seeking">
-			<span style = "float: left">Excitement_Seeking</span>
+			<span style = "float: left">Excitement Seeking</span>
 			<span style = "float: right"><?=$traits["Excitement_Seeking"]?>%</span>
 		</h2>
 
@@ -211,7 +214,7 @@ foreach ($r2->getData() as $messageSent) {
 
 	</div>
 
-	<h1>Approchability</h1>
+	<h1>Approawchability</h1>
 	<div>
 		<h2 id = "Structure">
 			<span style = "float: left">Structure</span>
