@@ -71,7 +71,8 @@ $watsonOutput = exec($command);
 //echo("\n");
 //echo($location."\n");
 $watsonOutput = json_decode($watsonOutput, true);
-echo($watsonOutput['tree']['children']['id']);
+//echo($watsonOutput['tree']['children']['id']);
+echo("here");
 
 ?>
 
@@ -95,16 +96,16 @@ echo($watsonOutput['tree']['children']['id']);
 		background-color: <?=$lightGreen?>;
 	}
 	#Challenge{
-		background-color: <?=$red?>;
+		background-color: <?=$lightRed?>;
 	}
 	#Practicality{
 		background-color: <?=$lightRed?>;
 	}
 	#Curiosity{
-		background-color: <?=yellow?>;
+		background-color: <?=lightYellow?>;
 	}
 	#Structure{
-		background-color: <?=$green?>;
+		background-color: <?=$lightGreen?>;
 	}
 	#Orderliness{
 		background-color: <?=$lightYellow?>
