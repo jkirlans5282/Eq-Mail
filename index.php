@@ -27,10 +27,10 @@ if (is_null($accountId)) {
 	die;
 }
 $toEmail='';
-// Get the most recent drafts message reciepient
 
 $toEmail= 'jacobkirlanstout@gmail.com';
-// Print the subject line of the last 100 emails sent from with bill@widgets.com
+
+// Print the subject line of the last 100 emails sent FROM 
 $args = array('from'=>$toEmail, 'limit'=>100);
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
@@ -38,7 +38,7 @@ foreach ($r->getData() as $message) {
 }
 
 // EXAMPLE 2
-// Print the Data  of the last 100 emails sent from with bill@widgets.com
+// Print the Data  of the last 100 emails sent FROM 
 
 $args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 //echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
@@ -48,7 +48,8 @@ foreach ($r->getData() as $message) {
 	//echo "Message: " .$message['body'][0]['content'];
 	$text .= $message['body'][0]['content'];
 }
-	
+
+
 echo "\nall examples finished\n";
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
@@ -80,6 +81,25 @@ foreach($traits as $trait){
 	echo("\n");
 	echo($trait);
 }
+
+// Print the subject line of the last 100 emails sent TO contact
+$args2 = array('to'=>$toEmail, 'limit'=>100);
+$r2 = $contextIO->listMessages($accountId, $args2);
+foreach ($r2->getData() as $messageSent) {
+	echo "Subject[Reply]: ".$messageSent['subject']."\n";
+}
+
+// Print the Data  of the last 100 emails sent TO 
+
+$args2 = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
+//echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
+$r2 = $contextIO->listMessages($accountId, $args2);
+foreach ($r2->getData() as $messageSent) {
+	echo "Message Sent Back: " .$messageSent['body'][0]['content'];
+	$textTo .= $messageSent['body'][0]['content'];
+}
+
+
 
 ?>
 
