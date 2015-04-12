@@ -145,20 +145,32 @@ foreach ($r2->getData() as $messageSent) {
 	<div class="opened-for-codepen">
 		<h2 id = "Self_Enhancement">
 			<span style = "float: left">Self Enhancement</span>
-			<span style = "float: right"><?=$traits["Self_Enhancement"]<?></span>
+			<span style = "float: right"><?=$traits["Self_Enhancement"]?>%</span>
 		</h2>
 		<p>Seeks personal success for themselves.</p>
 		
-		<h2 id ="Excitement_Seeking">Excitement Seeking</h2>
+		<h2 id ="Excitement_Seeking">
+		<span style = "float: left">Excitement_Seeking</span>
+		<span style = "float: right"><?=$traits["Excitement_Seeking"]?>%</span>
+		</h2>
 		<p>Is easily bored without high levels of stimulation.</p>
 		
-		<h2 id="Challenge">Challenge</h2>
+		<h2 id="Challenge">
+			<span style = "float: left">Challenge</span>
+			<span style = "float: right"><?=$traits["Challenge"]?>%</span>
+		</h2>
 		<p>Has a readiness to challenge authority, convention, and traditional values.</p>
 		
-		<h2 id="Practicality">Practicality</h2>
+		<h2 id="Practicality">
+			<span style = "float: left">Practicality</span>
+			<span style = "float: right"><?=$traits["Practicality"]?>%</span>
+		</h2>
 		<p>Has a desire to get the job done and a desire for skill and efficiency.</p>
 		
-		<h2 id="Curiosity">Curiosity</h2>
+		<h2 id="Curiosity">
+			<span style = "float: left">Curiosity</span>
+			<span style = "float: right"><?=$traits["Curiosity"]?>%</span>
+		</h2>
 		<p>Has a desire to discover, find out, and grow.</p>
 		
 
@@ -166,19 +178,34 @@ foreach ($r2->getData() as $messageSent) {
 
 	<h1>Approchability</h1>
 	<div>
-		<h2 id = "Structure">Structure</h2>
+		<h2 id = "Structure">
+			<span style = "float: left">Structure</span>
+			<span style = "float: right"><?=$traits["Structure"]?>%</span>
+		</h2>
 		<p>They need things to be well organized and under control.</p>
 		
-		<h2 id = "Orderliness">Orderliness</h2>
+		<h2 id = "Orderliness">
+			<span style = "float: left">Orderliness</span>
+			<span style = "float: right"><?=$traits["Orderliness"]?>%</span>
+		</h2>
 		<p>Is well-organized, tidy, and neat.</p>
 		
-		<h2 id ="Intellect">Intellect</h2>
+		<h2 id ="Intellect">
+			<span style = "float: left">Intellect</span>
+			<span style = "float: right"><?=$traits["Intellect"]?>%</span>
+		</h2>
 		<p>Is intellectually curious and tend to think in symbols and abstractions.</p>
 		
-		<h2 id = "Emotionality">Emotionality</h2>
+		<h2 id = "Emotionality">
+			<span style = "float: left">Emotionality</span>
+			<span style = "float: right"><?=$traits["Emotionality"]?>%</span>
+		</h2>
 		<p>Has good access to and awareness of their own feelings.</p>
 		
-		<h2 id = "Openness_To_Change">Openness To Change</h2>
+		<h2 id = "Openness_To_Change">
+			<span style = "float: left">Openness_To_Change</span>
+			<span style = "float: right"><?=$traits["Openness_To_Change"]?>%</span>
+		</h2>
 		<p>Emphasizes independent action, thought, and feeling, as well as a readiness for new experiences.</p>
 		
 	</div>
