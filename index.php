@@ -8,7 +8,7 @@ $lightRed='#E37D87';
 $lightYellow='#EBD982';
 //$green='#3A934D';
 $lightGreen='#62B274';
-
+if($_GET['email']!="blank"){
 
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
@@ -69,7 +69,6 @@ foreach ($r2->getData() as $messageSent) {
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
 
-echo($text);
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
@@ -102,7 +101,9 @@ $traits = array(
 			echo 'Caught Exception: ', $e->getMessage(), "\n";
 			$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 			}
-		
+}else{
+	$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+}
 foreach($traits as &$trait){
 	$trait*=100;
 	$trait = intval($trait);
@@ -223,7 +224,7 @@ foreach($traitsColors as &$color){
 
 	</div>
 
-	<h1>Approawchability</h1>
+	<h1>Approachability</h1>
 	<div>
 		<h2 id = "Structure">
 			<span style = "float: left">Structure</span>
