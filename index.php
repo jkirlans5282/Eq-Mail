@@ -34,7 +34,7 @@ $toEmail= 'jacobkirlanstout@gmail.com';
 $args = array('from'=>$toEmail, 'limit'=>100);
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
-	echo "Subject: ".$message['subject']."\n";
+	//echo "Subject: ".$message['subject']."\n";
 }
 
 // EXAMPLE 2
@@ -52,7 +52,6 @@ foreach ($r->getData() as $message) {
 echo "\nall examples finished\n";
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
-echo($text);
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
@@ -74,7 +73,7 @@ $traits = array(
 				"Cooperation"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'],
 				"Trust"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][5]['percentage']
 				);
-foreach($traits as $trait){
+foreach($traits as &$trait){
 	$trait*=100;
 	$trait = intval($trait);
 	echo("\n");
@@ -86,7 +85,7 @@ foreach($traits as $trait){
 $args2 = array('to'=>$toEmail, 'limit'=>100);
 $r2 = $contextIO->listMessages($accountId, $args2);
 foreach ($r2->getData() as $messageSent) {
-	echo "Subject[Reply]: ".$messageSent['subject']."\n";
+	//echo "Subject[Reply]: ".$messageSent['subject']."\n";
 }
 
 // Print the Data  of the last 100 emails sent TO 
@@ -95,7 +94,7 @@ $args2 = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 //echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
 $r2 = $contextIO->listMessages($accountId, $args2);
 foreach ($r2->getData() as $messageSent) {
-	echo "Message Sent Back: " .$messageSent['body'][0]['content'];
+	//echo "Message Sent Back: " .$messageSent['body'][0]['content'];
 	$textTo .= $messageSent['body'][0]['content'];
 }
 
