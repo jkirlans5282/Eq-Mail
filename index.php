@@ -148,10 +148,7 @@ foreach ($r2->getData() as $messageSent) {
 		</h2>
 		<p>Seeks personal success for themselves.</p>
 		
-		<h2 id ="Excitement_Seeking">
-		<span style = "float: left">Excitement_Seeking</span>
-		<span style = "float: right"><?=$traits["Excitement_Seeking"]?>%</span>
-		</h2>
+		<h2 id ="Excitement_Seeking">Excitement Seeking</h2>
 		<p>Is easily bored without high levels of stimulation.</p>
 		
 		<h2 id="Challenge">
