@@ -143,9 +143,11 @@ foreach ($r2->getData() as $messageSent) {
 	<h1>Motivation</h1>
 	<div class="opened-for-codepen">
 		<h2 id = "Self_Enhancement">
+		<div class="opened-for-codepen">
 			<span style = "float: left">Self Enhancement</span>
 			<span style = "float: right"><?=$traits["Self_Enhancement"]?>%</span>
 		</h2>
+		</div>
 		<p>Seeks personal success for themselves.</p>
 		
 		<h2 id ="Excitement_Seeking">Excitement Seeking</h2>
