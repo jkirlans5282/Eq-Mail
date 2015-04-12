@@ -99,7 +99,7 @@ foreach ($r2->getData() as $messageSent) {
 	$textTo .= $messageSent['body'][0]['content'];
 }
 
-
+ 
 
 ?>
 
