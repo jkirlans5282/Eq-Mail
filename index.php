@@ -2,9 +2,6 @@
 <!DOCTYPE html>
 <html>
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'GET') {
-    echo $_GET['email']."\n";
-}
 //$red='#BC4A54';
 $lightRed='#E37D87';
 //$yellow='#C2AE4C';
