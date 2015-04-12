@@ -26,17 +26,9 @@ foreach ($r->getData() as $account) {
 if (is_null($accountId)) {
 	die;
 }
-/*$toEmail='';
+$toEmail='';
 // Get the most recent drafts message reciepient
-$draftsArgs = array('folder'=>'Drafts', 'limit'=>100);
-$s = $contextIO->listMessages($accountId, $draftsArgs);
-foreach ($s->getData() as $messageDraft) {
-	echo "toEmail: ".$messageDraft['to']."\n";
-	$toEmail=$messageDraft['to'];
-}
-  // $messageRecent->addresses->to[0]->email;
-*/
-/*
+
 $toEmail= 'jacobkirlanstout@gmail.com';
 // Print the subject line of the last 100 emails sent from with bill@widgets.com
 $args = array('from'=>$toEmail, 'limit'=>100);
@@ -54,13 +46,13 @@ $r = $contextIO->listMessages($accountId, $args);
 echo($r);
 foreach ($r->getData() as $message) {
 	//print_r($message);
-	//echo "Message: " .$message['body'][0]['content'];
+	echo "Message: " .$message['body'][0]['content'];
 	$text = $message['body'][0]['content'];
 }
 	
 echo "\nall examples finished\n";
-*/
-$text="Extending pharmaceuticaled without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical ed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical patents beyond the current 20 the quick brown fox jumped over the lazy dog years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, then on R&D, it is foolish to further desincentivize the advancement of life saving drugs. We need more effective drugs not more expensive ones. These high costs will also prevent the proliferation of these drugs in impoverished nations and locales where they are needed most."; //where text is the output of the context.io pull
+
+//$text="Extending pharmaceuticaled without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical ed without proper oversight or input from the public. The shear fact that wikileaks was the source to provide the full text of the bill should indicate that TPP outlines laws which are NOT in the best interests of the general public, since the laws had to be hidden from the public. TPP contains clauses which are unacceptable. These clauses will extend pharmaceutical patents beyond the current 20 the quick brown fox jumped over the lazy dog years will prevent generic drug production forcing patients to pay more for the same medication. This disincentives investment in research and development of new and better drugs, and at a time when drug companies already spend 1.5-2 times more on marketing, then on R&D, it is foolish to further desincentivize the advancement of life saving drugs. We need more effective drugs not more expensive ones. These high costs will also prevent the proliferation of these drugs in impoverished nations and locales where they are needed most."; //where text is the output of the context.io pull
 
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
@@ -72,13 +64,27 @@ $watsonOutput = exec($command);
 //echo($location."\n");
 $watsonOutput = json_decode($watsonOutput, true);
 $traits = array(
-				"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['percentage'], //self-enhancement
-				"Excitement_Seeking" => $watsonOutput['tree']['children'][2]['children'][3]['percentage'], //excitement seeking
-				"Challenge" => $watsonOutput['tree']['children'][1]['children'][0]['children'][0]['percentage'],
-				
+				"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['name'], //self-enhancement
+				"Excitement_Seeking" => $watsonOutput['tree']['children'][0]['children'][0]['children'][2]['children'][3]['name'], //excitement seeking
+				"Challenge" => $watsonOutput['tree']['children'][1]['children'][0]['children'][0]['name'],
+				"Practicality" => $watsonOutput['tree']['children'][1]['children'][0]['children'][8]['name'],
+				"Curiosity" => $watsonOutput['tree']['children'][1]['children'][0]['children'][2]['name'],
+				"Structure" => $watsonOutput['tree']['children'][1]['children'][0]['children'][11]['name'],
+				"Orderliness" => $watsonOutput['tree']['children'][0]['children'][0]['children'][1]['children'][3]['name'],
+				"Intellect" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][4]['name'],
+				"Emotionality" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][2]['name'],
+				"Openness_To_Change" => $watsonOutput['tree']['children'][2]['children'][0]['children'][1]['name'],
+				"Fiery" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][0]['name'],
+				"Susceptible_To_Stress" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][5]['name'],
+				"Authority_Challenging" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][5]['name'],
+				"Cooperation"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['name'],
+				"Trust"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][5]['name']
 				);
+foreach($traits as $trait){
+	echo($trait);
+	echo("\n");
 
-echo($traits["Self_Enhancement"]);
+}
 
 ?>
 
