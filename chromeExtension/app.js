@@ -23,5 +23,8 @@ function setIframe(email){
     }
 	document.getElementById('iframe').src="https://csel.cs.colorado.edu/~jaki2391/index.php?email="+email;
 	document.getElementById('name').innerHTML="PERSONAL EMAIL FOR: "+email;
+    document.getElementById('ifram').onload=function(){
+        console.log("loaded");
+    }
 
 }
