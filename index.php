@@ -29,11 +29,11 @@ foreach ($r->getData() as $account) {
 if (is_null($accountId)) {
 	die;
 }
-$toEmail='';
-// Get the most recent drafts message reciepient
+$toEmail=null;
 
-$toEmail= $_GET['email'];//'jacobkirlanstout@gmail.com';
-// Print the subject line of the last 100 emails sent from with bill@widgets.com
+$toEmail= $_GET['email'];
+if($toEmail!= null){
+// Print the subject line of the last 100 emails sent from
 $args = array('from'=>$toEmail, 'limit'=>100);
 $r = $contextIO->listMessages($accountId, $args);
 foreach ($r->getData() as $message) {
@@ -52,11 +52,35 @@ foreach ($r->getData() as $message) {
 	$text .= $message['body'][0]['content'];
 }
 
+// Print the subject line of the last 100 emails sent TO contact
+$args2 = array('to'=>$toEmail, 'limit'=>100);
+$r2 = $contextIO->listMessages($accountId, $args2);
+foreach ($r2->getData() as $messageSent) {
+	//echo "Subject[Reply]: ".$messageSent['subject']."\n";
+}
+
+// Print the Data  of the last 100 emails sent TO 
+
+$args2 = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
+//echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
+$r2 = $contextIO->listMessages($accountId, $args2);
+foreach ($r2->getData() as $messageSent) {
+	//echo "Message Sent Back: " .$messageSent['body'][0]['content'];
+	$textTo .= $messageSent['body'][0]['content'];
+}
+}
+
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
+
 echo($text);
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
+	if(!$watsonOutput)
+		{
+			throw new Exception('Not Enough data for Watson');
+		}
+	try {
 $watsonOutput = json_decode($watsonOutput, true);
 $traits = array(
 				"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['children'][3]['percentage'], //self-enhancement
@@ -76,6 +100,12 @@ $traits = array(
 				"Cooperation"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'],
 				"BUllshit"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'] //DO NOT REMOVE
 				);
+		}
+		catch(Exception $e){
+			echo 'Caught Exception: ', $e->getMessage(), "\n";
+			$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+			}
+		
 foreach($traits as &$trait){
 	$trait*=100;
 	$trait = intval($trait);
@@ -94,24 +124,6 @@ foreach($traitsColors as &$color){
 }
 
 
-// Print the subject line of the last 100 emails sent TO contact
-$args2 = array('to'=>$toEmail, 'limit'=>100);
-$r2 = $contextIO->listMessages($accountId, $args2);
-foreach ($r2->getData() as $messageSent) {
-	//echo "Subject[Reply]: ".$messageSent['subject']."\n";
-}
-
-// Print the Data  of the last 100 emails sent TO 
-
-$args2 = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
-//echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
-$r2 = $contextIO->listMessages($accountId, $args2);
-foreach ($r2->getData() as $messageSent) {
-	//echo "Message Sent Back: " .$messageSent['body'][0]['content'];
-	$textTo .= $messageSent['body'][0]['content'];
-}
-
- 
 ?>
 
 <head>
