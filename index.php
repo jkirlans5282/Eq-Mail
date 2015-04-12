@@ -291,9 +291,6 @@ foreach($traitsColors as &$color){
 		</h2>
 
 		<p>Assumes that most people are fundamentally fair, honest, and have good intentions.</p>
-
-
-
 		
 	</div>
 </aside>

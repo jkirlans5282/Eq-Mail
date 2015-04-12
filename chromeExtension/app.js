@@ -16,15 +16,11 @@ chrome.tabs.query({
     // Example:
 });
 function setIframe(email){
-	console.log(email);
 	email = email.substr(email.search("<")+1);
-    if(email.substr(length-1)==">"){
+    if(email.substr(length-2)==">"){
 	   email=email.substr(0, email.length-1);
     }
+    console.log(email);
 	document.getElementById('iframe').src="https://csel.cs.colorado.edu/~jaki2391/index.php?email="+email;
 	document.getElementById('name').innerHTML="PERSONAL EMAIL FOR: "+email;
-    document.getElementById('ifram').onload=function(){
-        console.log("loaded");
     }
-
-}
