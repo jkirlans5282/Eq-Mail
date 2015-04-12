@@ -17,3 +17,8 @@ Twitter script:
 https://gist.github.com/yanofsky/5436496
 
 Website: apccurtiss.me
+
+
+TODO:
+context.io signin
+loading bar
