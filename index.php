@@ -43,7 +43,6 @@ foreach ($r->getData() as $message) {
 $args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
 //echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
 $r = $contextIO->listMessages($accountId, $args);
-echo($r);
 foreach ($r->getData() as $message) {
 	//print_r($message);
 	echo "Message: " .$message['body'][0]['content'];
