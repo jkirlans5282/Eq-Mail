@@ -13,6 +13,8 @@ if($_GET['email']!="blank"){
 // remove first line above if you're not running these examples through PHP CLI
 include_once("class.contextio.php");
 // see https://console.context.io/#settings to get your consumer key and consumer secret.
+// Pereits: '6bbaozd7','WucIFMnI5UkHfruB'
+// jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
 $contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
 $accountId = null;
 
@@ -74,6 +76,8 @@ $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2
 $watsonOutput = exec($command);
 	if(!$watsonOutput)
 		{
+			echo('not enough data');
+
 			throw new Exception('Not Enough data for Watson');
 		}
 	try {
@@ -187,6 +191,7 @@ foreach($traitsColors as &$color){
 	}
 
 </style>
+
 <aside class="accordion">
 	<h1>Motivation</h1>
 	<div class="opened-for-codepen">
