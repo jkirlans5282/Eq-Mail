@@ -2,85 +2,83 @@
 <!DOCTYPE html>
 <html>
 <?php
-//$red='#BC4A54';
 $lightRed='#E37D87';
-//$yellow='#C2AE4C';
 $lightYellow='#EBD982';
-//$green='#3A934D';
 $lightGreen='#62B274';
-if($_GET['email']!="blank"){
-
+$logFile = fopen("logFile.txt", "a");
+if($_GET['email']!=""){
 // remove first line above if you're not running these examples through PHP CLI
-include_once("class.contextio.php");
+	include_once("class.contextio.php");
 // see https://console.context.io/#settings to get your consumer key and consumer secret.
 // Pereits: '6bbaozd7','WucIFMnI5UkHfruB'
 // jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
-$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
-$accountId = null;
+	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
+	$accountId = null;
 
-// list your accounts
-$r = $contextIO->listAccounts();
-foreach ($r->getData() as $account) {
+	// list your accounts
+	$r = $contextIO->listAccounts();
+	foreach ($r->getData() as $account) {
+		if (is_null($accountId)) {
+			$accountId = $account['id'];
+		}
+	}
 	if (is_null($accountId)) {
-		$accountId = $account['id'];
+		die;
+	}
+
+	$fromEmail=null;
+	$fromEmail= $_GET['email'];
+	if($fromEmail!= null){
+	// Print the subject line of the last 100 emails sent from
+	$args = array('from'=>$fromEmail, 'limit'=>100);
+	$r = $contextIO->listMessages($accountId, $args);
+	foreach ($r->getData() as $message) {
+		//echo "Subject: ".$message['subject']."\n";
+	}
+
+	// EXAMPLE 2
+	// Print the Data  of the last 100 emails sent from with bill@widgets.com
+	$args = array('from'=>$fromEmail, 'limit'=>100, 'include_body'=>1);
+	//echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+	$r = $contextIO->listMessages($accountId, $args);
+	//echo($r);
+	foreach ($r->getData() as $message) {
+		//echo "Message: " .$message['body'][0]['content'];
+		$text .= $message['body'][0]['content'];
+	}
+
+	// Print the subject line of the last 100 emails sent TO contact
+	$args2 = array('to'=>$fromEmail, 'limit'=>100);
+	$r2 = $contextIO->listMessages($accountId, $args2);
+	foreach ($r2->getData() as $messageSent) {
+		//echo "Subject[Reply]: ".$messageSent['subject']."\n";
+	}
+
+	// Print the Data  of the last 100 emails sent TO 
+
+	$args2 = array('to'=>$fromEmail, 'limit'=>100, 'include_body'=>1);
+	//echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
+	$r2 = $contextIO->listMessages($accountId, $args2);
+	foreach ($r2->getData() as $messageSent) {
+		//echo "Message Sent Back: " .$messageSent['body'][0]['content'];
+		$textTo .= $messageSent['body'][0]['content'];
 	}
 }
-if (is_null($accountId)) {
-	die;
-}
-$toEmail=null;
 
-$toEmail= $_GET['email'];
-if($toEmail!= null){
-// Print the subject line of the last 100 emails sent from
-$args = array('from'=>$toEmail, 'limit'=>100);
-$r = $contextIO->listMessages($accountId, $args);
-foreach ($r->getData() as $message) {
-	//echo "Subject: ".$message['subject']."\n";
-}
 
-// EXAMPLE 2
-// Print the Data  of the last 100 emails sent from with bill@widgets.com
 
-$args = array('from'=>$toEmail, 'limit'=>100, 'include_body'=>1);
-//echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
-$r = $contextIO->listMessages($accountId, $args);
-//echo($r);
-foreach ($r->getData() as $message) {
-	//echo "Message: " .$message['body'][0]['content'];
-	$text .= $message['body'][0]['content'];
-}
-
-// Print the subject line of the last 100 emails sent TO contact
-$args2 = array('to'=>$toEmail, 'limit'=>100);
-$r2 = $contextIO->listMessages($accountId, $args2);
-foreach ($r2->getData() as $messageSent) {
-	//echo "Subject[Reply]: ".$messageSent['subject']."\n";
-}
-
-// Print the Data  of the last 100 emails sent TO 
-
-$args2 = array('to'=>$toEmail, 'limit'=>100, 'include_body'=>1);
-//echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
-$r2 = $contextIO->listMessages($accountId, $args2);
-foreach ($r2->getData() as $messageSent) {
-	//echo "Message Sent Back: " .$messageSent['body'][0]['content'];
-	$textTo .= $messageSent['body'][0]['content'];
-}
-}
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
-
 $watsonString= "$'".$text."'";
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
-	if(!$watsonOutput)
-		{
-			echo('not enough data');
 
-			throw new Exception('Not Enough data for Watson');
-		}
-	try {
+if(!$watsonOutput)
+	{
+		fwrite($logFile, "Not enough data for watson: ".$text);
+		throw new Exception('Not Enough data for Watson');
+	}
+try {
 $watsonOutput = json_decode($watsonOutput, true);
 $traits = array( 
 				"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['children'][3]['percentage'], //self-enhancement
@@ -102,7 +100,8 @@ $traits = array(
 				);
 		}
 		catch(Exception $e){
-			echo 'Caught Exception: ', $e->getMessage(), "\n";
+			$errorMessage = 'Caught Exception from watson: ', $e->getMessage(), "\n";
+			fwrite($logFile, $errorMessage);
 			$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 			}
 }else{
@@ -120,12 +119,11 @@ foreach($traitsColors as &$color){
 	}elseif($color>25){
 		$color = $lightYellow;
 	}else{
-		//echo($color."\n");
 		$color = $lightRed;
 	}
 }
 
-
+fclose($logFile);
 ?>
 
 <head>
@@ -189,7 +187,6 @@ foreach($traitsColors as &$color){
 		background-color: <?=$traitsColors['Trust']?>;
 		border-radius: 0 0 10px 10px;
 	}
-
 </style>
 
 <aside class="accordion">
