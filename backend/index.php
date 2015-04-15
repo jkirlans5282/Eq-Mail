@@ -14,7 +14,6 @@ if($_GET['email']!=""){
 // jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
 	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
 	$accountId = null;
-
 	// list your accounts
 	$r = $contextIO->listAccounts();
 	foreach ($r->getData() as $account) {
@@ -105,6 +104,7 @@ $traits = array(
 			$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 			}
 }else{
+	fwrite($logFile, "Email blank");
 	$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 }
 foreach($traits as &$trait){
