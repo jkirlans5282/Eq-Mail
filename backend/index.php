@@ -2,21 +2,23 @@
 <!DOCTYPE html>
 <html>
 <?php
-$lightRed='#E37D87';
-$lightYellow='#EBD982';
-$lightGreen='#62B274';
-$logFile = fopen("logFile.txt", "a");
-if($_GET['email']!=""){
-// remove first line above if you're not running these examples through PHP CLI
+
+$logFile = fopen("logFile.txt", "a"); // logFile records and issues, or errors for debugging.
+
+////  GET request is sent from chrome browser extension.
+////  Can users signup and access our service without entering their api keys? -Jacob
+
+if($_GET['email']!="")
+{
 	include_once("class.contextio.php");
-// see https://console.context.io/#settings to get your consumer key and consumer secret.
-// Pereits: '6bbaozd7','WucIFMnI5UkHfruB'
-// jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
-	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB');
+	// Pereits: '6bbaozd7','WucIFMnI5UkHfruB'
+	// Jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
+	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB'); //declares an instance of the contextio class from the included php files.
 	$accountId = null;
+
 	// list your accounts
-	$r = $contextIO->listAccounts();
-	foreach ($r->getData() as $account) {
+	$r = $contextIO->listAccounts(); // r is a list of email accounts? What is the return value if there are no accounts? -Jacob
+	foreach ($r->getData() as $account) { //getData() parses response into a php structure -Jacob
 		if (is_null($accountId)) {
 			$accountId = $account['id'];
 		}
@@ -24,96 +26,77 @@ if($_GET['email']!=""){
 	if (is_null($accountId)) {
 		die;
 	}
-
 	$fromEmail=null;
-	$fromEmail= $_GET['email'];
-	if($fromEmail!= null){
-	// Print the subject line of the last 100 emails sent from
-	$args = array('from'=>$fromEmail, 'limit'=>100);
-	$r = $contextIO->listMessages($accountId, $args);
-	foreach ($r->getData() as $message) {
-		//echo "Subject: ".$message['subject']."\n";
-	}
+	$fromEmail= $_GET['email'];	
 
-	// EXAMPLE 2
-	// Print the Data  of the last 100 emails sent from with bill@widgets.com
-	$args = array('from'=>$fromEmail, 'limit'=>100, 'include_body'=>1);
-	//echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
-	$r = $contextIO->listMessages($accountId, $args);
-	//echo($r);
-	foreach ($r->getData() as $message) {
-		//echo "Message: " .$message['body'][0]['content'];
-		$text .= $message['body'][0]['content'];
-	}
+	if($fromEmail!= null) //This is redundent, initial if statement should catch this. What we need to catch is invalid or nonexistant emails. -Jacob
+	{
+		$args = array('from'=>$fromEmail, 'limit'=>100, 'include_body'=>1); //Array of arguments passed to list messages call with context.io api
+		echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+		$r = $contextIO->listMessages($accountId, $args);
 
-	// Print the subject line of the last 100 emails sent TO contact
-	$args2 = array('to'=>$fromEmail, 'limit'=>100);
-	$r2 = $contextIO->listMessages($accountId, $args2);
-	foreach ($r2->getData() as $messageSent) {
-		//echo "Subject[Reply]: ".$messageSent['subject']."\n";
-	}
-
-	// Print the Data  of the last 100 emails sent TO 
-
-	$args2 = array('to'=>$fromEmail, 'limit'=>100, 'include_body'=>1);
-	//echo "\nGetting last 100 messages exchanged with {$args['to']}\n";
-	$r2 = $contextIO->listMessages($accountId, $args2);
-	foreach ($r2->getData() as $messageSent) {
-		//echo "Message Sent Back: " .$messageSent['body'][0]['content'];
-		$textTo .= $messageSent['body'][0]['content'];
+		foreach ($r->getData() as $message)
+		{
+			$text .= $message['body'][0]['content'];
+		}
 	}
 }
-
-
-
+else{fwrite($logFile, "fromEmail is null, no email was passed in");}
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
 $watsonString= "$'".$text."'";
+///  this curl command is going to be a point of failure
+///  Also susceptible to possible injection attack -Jacob
+//////////////////////////////////////////////////////
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
 
 if(!$watsonOutput)
-	{
-		fwrite($logFile, "Not enough data for watson: ".$text);
-		throw new Exception('Not Enough data for Watson');
-	}
-try {
-$watsonOutput = json_decode($watsonOutput, true);
-$traits = array( 
-				"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['children'][3]['percentage'], //self-enhancement
-				"Excitement_Seeking" => $watsonOutput['tree']['children'][0]['children'][0]['children'][2]['children'][3]['percentage'], //excitement seeking
-				"Challenge" => $watsonOutput['tree']['children'][1]['children'][0]['children'][0]['percentage'],
-				"Practicality" => $watsonOutput['tree']['children'][1]['children'][0]['children'][8]['percentage'],
-				"Curiosity" => $watsonOutput['tree']['children'][1]['children'][0]['children'][2]['percentage'],
-				"Structure" => $watsonOutput['tree']['children'][1]['children'][0]['children'][11]['percentage'],
-				"Orderliness" => $watsonOutput['tree']['children'][0]['children'][0]['children'][1]['children'][3]['percentage'],
-				"Intellect" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][4]['percentage'],
-				"Emotionality" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][2]['percentage'],
-				"Openness_To_Change" => $watsonOutput['tree']['children'][2]['children'][0]['children'][1]['percentage'],
-				"Fiery" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][0]['percentage'],
-				"Susceptible_To_Stress" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][5]['percentage'],
-				"Authority_Challenging" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][5]['percentage'],
-				"Trust"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][5]['percentage'],
-				"Cooperation"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'],
-				"BUllshit"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'] //DO NOT REMOVE
-				);
-		}
-		catch(Exception $e){
-			$errorMessage = 'Caught Exception from watson: ', $e->getMessage(), "\n";
-			fwrite($logFile, $errorMessage);
-			$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-			}
-}else{
-	fwrite($logFile, "Email blank");
+{
+	fwrite($logFile, "Not enough data for watson: ".$text);
+	throw new Exception('Not Enough data for Watson');
+}
+try 
+{
+	$watsonOutput = json_decode($watsonOutput, true);
+	$traits = array
+	( 
+		"Self_Enhancement" => $watsonOutput['tree']['children'][2]['children'][0]['children'][3]['percentage'], //self-enhancement
+		"Excitement_Seeking" => $watsonOutput['tree']['children'][0]['children'][0]['children'][2]['children'][3]['percentage'], //excitement seeking
+		"Challenge" => $watsonOutput['tree']['children'][1]['children'][0]['children'][0]['percentage'],
+		"Practicality" => $watsonOutput['tree']['children'][1]['children'][0]['children'][8]['percentage'],
+		"Curiosity" => $watsonOutput['tree']['children'][1]['children'][0]['children'][2]['percentage'],
+		"Structure" => $watsonOutput['tree']['children'][1]['children'][0]['children'][11]['percentage'],
+		"Orderliness" => $watsonOutput['tree']['children'][0]['children'][0]['children'][1]['children'][3]['percentage'],
+		"Intellect" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][4]['percentage'],
+		"Emotionality" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][2]['percentage'],
+		"Openness_To_Change" => $watsonOutput['tree']['children'][2]['children'][0]['children'][1]['percentage'],
+		"Fiery" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][0]['percentage'],
+		"Susceptible_To_Stress" => $watsonOutput['tree']['children'][0]['children'][0]['children'][4]['children'][5]['percentage'],
+		"Authority_Challenging" => $watsonOutput['tree']['children'][0]['children'][0]['children'][0]['children'][5]['percentage'],
+		"Trust"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][5]['percentage'],
+		"Cooperation"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'],
+		"BUllshit"=>$watsonOutput['tree']['children'][0]['children'][0]['children'][3]['children'][1]['percentage'] //DO NOT REMOVE
+	);
+}
+catch(Exception $e)
+{
+	$errorMessage = 'Caught Exception from watson: '.$e->getMessage(). '\n';
+	fwrite($logFile, $errorMessage);
 	$traits = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 }
-foreach($traits as &$trait){
+foreach($traits as &$trait)
+{
 	$trait*=100;
 	$trait = intval($trait);
 }
-$traitsColors = $traits;
+$traitsColors = $traits; // this is redundent, we can simply alter traits directly in the next foreach -Jacob.
 
-foreach($traitsColors as &$color){
+$lightRed='#E37D87';
+$lightYellow='#EBD982';
+$lightGreen='#62B274';
+foreach($traitsColors as &$color)
+{
 	if ($color>=75) {
 		$color = $lightGreen;
 	}elseif($color>25){
