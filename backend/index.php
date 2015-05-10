@@ -17,39 +17,42 @@ if($_GET['email']!="")
 	$accountId = null;
 
 	// list your accounts
-	$r = $contextIO->listAccounts(); // r is a list of email accounts? What is the return value if there are no accounts? -Jacob
-	foreach ($r->getData() as $account) { //getData() parses response into a php structure -Jacob
-		if (is_null($accountId)) {
-			$accountId = $account['id'];
-		}
-	}
-	if (is_null($accountId)) {
-		die;
-	}
-	$fromEmail=null;
-	$fromEmail= $_GET['email'];	
-
-	if($fromEmail!= null) //This is redundent, initial if statement should catch this. What we need to catch is invalid or nonexistant emails. -Jacob
+	$listOfAccounts = $contextIO->listAccounts(); // r is a list of email accounts? What is the return value if there are no accounts? -Jacob
+	if($listOfAccounts==null) //check that there are valid accounts present. -Jacob
 	{
-		$args = array('from'=>$fromEmail, 'limit'=>100, 'include_body'=>1); //Array of arguments passed to list messages call with context.io api
-		echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
-		$r = $contextIO->listMessages($accountId, $args);
+		fwrite($logFile, "no valid accounts"); 
+	}
+	else
+	{
+		$fromEmail= $_GET['email'];
+		// I don't like the static call, theres a possibility they sent 100 1 word emails. And also a possibility the sent 100 essays -Jacob
+		// Is there a way it can return and quit once it has enough data to pass to watson? -Jacob
+		$args = array('from'=>$fromEmail, 'limit'=>100, 'include_body'=>1); //Array of arguments passed to list messages call with context.io api -Jacob
+		foreach ($listOfAccounts->getData() as $account) //getData() parses response into a php structure -Jacob 
+		{												
+			$accountId = $account['id']; //This assigns it to the current account -Jacob
+			echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+			$listOfMessages = $contextIO->listMessages($accountId, $args); //returns a list of messages sent to the user from fromEmail. -Jacob
 
-		foreach ($r->getData() as $message)
-		{
-			$text .= $message['body'][0]['content'];
+			foreach ($listOfMessages->getData() as $message)
+			{
+				//I also don't like the nested loops too much data, its gonna slow down, and be a huge memory suck -Jacob
+				$text .= $message['body'][0]['content']; //We need to check the size of the text object to ensure it doesnt exceed the max watson can handle, 2.2 mb? I think. -Jacob
+			}
 		}
 	}
 }
 else{fwrite($logFile, "fromEmail is null, no email was passed in");}
 
-$text = preg_replace("/[^A-Za-z0-9 ]/", '', $text);
+$text = preg_replace("/[^A-Za-z0-9 ]/", '', $text); 
+//Does the preg replace also eliminate semi colons?
 $watsonString= "$'".$text."'";
 ///  this curl command is going to be a point of failure
 ///  Also susceptible to possible injection attack -Jacob
 //////////////////////////////////////////////////////
 $command = "curl 'https://gateway.watsonplatform.net/personality-insights/api/v2/profile?header=false' -H 'Authorization: Basic ZjE0YjlkMGItM2NlZC00NWM3LTk4YzMtOTllZDBlYzllOTZmOjRpYkRWSG5Oam9VVw==' -H 'Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36' -H 'Content-Language: en' -H 'Accept: application/json' -H 'Cache-Control: no-cache' -H 'Connection: keep-alive' -H 'Content-Type: text/plain' --data-binary ".$watsonString." --compressed";
 $watsonOutput = exec($command);
+//////////////////////////////////////////////////////
 
 if(!$watsonOutput)
 {
