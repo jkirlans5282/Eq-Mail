@@ -45,7 +45,7 @@ if($_GET['email']!="")
 else{fwrite($logFile, "fromEmail is null, no email was passed in");}
 
 $text = preg_replace("/[^A-Za-z0-9 ]/", '', $text); 
-//Does the preg replace also eliminate semi colons?
+//Does the preg replace also eliminate semi colons and # ? -Jacob
 $watsonString= "$'".$text."'";
 ///  this curl command is going to be a point of failure
 ///  Also susceptible to possible injection attack -Jacob
