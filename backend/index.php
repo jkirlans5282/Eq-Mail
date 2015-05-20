@@ -11,7 +11,7 @@ $logFile = fopen("logFile.txt", "a"); // logFile records and issues, or errors f
 if($_GET['email']!="")
 {
 	include_once("class.contextio.php");
-	// Pereits: '6bbaozd7','WucIFMnI5UkHfruB'
+	// Prerit's: '6bbaozd7','WucIFMnI5UkHfruB'
 	// Jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
 	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB'); //declares an instance of the contextio class from the included php files.
 	$accountId = null;
@@ -27,17 +27,20 @@ if($_GET['email']!="")
 		$fromEmail= $_GET['email'];
 		// I don't like the static call, theres a possibility they sent 100 1 word emails. And also a possibility the sent 100 essays -Jacob
 		// Is there a way it can return and quit once it has enough data to pass to watson? -Jacob
+		// I don't quite understand what you mean by this. Do you want it to stop reading the email at a certain point? -Prerit
 		$args = array('from'=>$fromEmail, 'limit'=>100, 'include_body'=>1); //Array of arguments passed to list messages call with context.io api -Jacob
 		foreach ($listOfAccounts->getData() as $account) //getData() parses response into a php structure -Jacob 
 		{												
-			$accountId = $account['id']; //This assigns it to the current account -Jacob
-			echo "\nGetting last 100 messages exchanged with {$args['from']}\n";
+			$accountId = $account['id']; //This assigns id to the current account -Jacob
+			echo "\nGetting last 100 messages exchanged with {$args['from']}\n"; //Prints "Getting last 100 messages from (specified toEmail User)"
 			$listOfMessages = $contextIO->listMessages($accountId, $args); //returns a list of messages sent to the user from fromEmail. -Jacob
 
 			foreach ($listOfMessages->getData() as $message)
 			{
 				//I also don't like the nested loops too much data, its gonna slow down, and be a huge memory suck -Jacob
+				//How else do you think we can improve from the nested for loops? -Prerit 
 				$text .= $message['body'][0]['content']; //We need to check the size of the text object to ensure it doesnt exceed the max watson can handle, 2.2 mb? I think. -Jacob
+				// Should we put a while loop here to ensure that it doesn't increase over 2.2 mb for IBM Watson? -Prerit 
 			}
 		}
 	}
