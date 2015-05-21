@@ -19,7 +19,7 @@ if($_GET['email']!="")
 	
 	 
 	//creates a connect token- Prerit 
-	$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => '[Website, I dont quite remember the address]', 'email' => '$_GET['email']'));
+	$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'https://csel.cs.colorado.edu/~jaki2391/index.php', 'email' => '$_GET['email']')); 
 	//get the redirect url from the response, and direct the user to it - Prerit
 	$redirectUrl = $addTokenResponse->getDataProperty('browser_redirect_url');
 	print_r($redirectUrl);
