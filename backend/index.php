@@ -11,6 +11,17 @@ $logFile = fopen("logFile.txt", "a"); // logFile records and issues, or errors f
 if($_GET['email']!="")
 {
 	include_once("class.contextio.php");
+	
+	/* 
+	//creates a connect token- Prerit 
+	$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => '[Website, I don't quite remember the address]', 'email' => '$_GET['email']'));
+	//get the redirect url from the response, and direct the user to it - Prerit
+	$redirectUrl = $addTokenResponse->getDataProperty('browser_redirect_url');
+	print_r($redirectUrl);
+	//once the user connects, they will be redirected to the callback url with a contextio_token, which the app stores
+
+	*/
+
 	// Prerit's: '6bbaozd7','WucIFMnI5UkHfruB'
 	// Jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
 	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB'); //declares an instance of the contextio class from the included php files.
