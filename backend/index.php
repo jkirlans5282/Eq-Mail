@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html>
 <?php
+define('CONSUMER_KEY', '6bbaozd7'); //prerits;
+define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
+
+//define('CONSUMER_KEY', 'gvpktxy7'); //jacobs
+//define('CONSUMER_SECRET', 'vqlZVUASfd0uIQ5U');
 
 $logFile = fopen("logFile.txt", "a"); // logFile records and issues, or errors for debugging.
 
@@ -24,7 +29,7 @@ if($_GET['email']!="")
 
 	// Prerit's: '6bbaozd7','WucIFMnI5UkHfruB'
 	// Jacob's: 'gvpktxy7','vqlZVUASfd0uIQ5U'
-	$contextIO = new ContextIO('6bbaozd7','WucIFMnI5UkHfruB'); //declares an instance of the contextio class from the included php files.
+	$contextIO = new ContextIO(CONSUMER_KEY, CONSUMER_SECRET); //declares an instance of the contextio class from the included php files.
 	$accountId = null;
 
 	// list your accounts
