@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <?php
+include_once("class.contextio.php");
+include_once("database.php")
 define('CONSUMER_KEY', '6bbaozd7'); //prerits;
 define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 
@@ -15,7 +17,6 @@ $logFile = fopen("logFile.txt", "a"); // logFile records and issues, or errors f
 
 if($_GET['email']!="")
 {
-	include_once("class.contextio.php");
 	
 	 
 	//creates a connect token- Prerit 
