@@ -3,7 +3,7 @@
 <html>
 <?php
 include_once("class.contextio.php");
-include_once("database.php")
+include_once("cookie.php"); // excecutes the cookie stuff
 define('CONSUMER_KEY', '6bbaozd7'); //prerits;
 define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 
@@ -11,19 +11,20 @@ define('CONSUMER_SECRET', 'WucIFMnI5UkHfruB');
 //define('CONSUMER_SECRET', 'vqlZVUASfd0uIQ5U');
 
 $logFile = fopen("logFile.txt", "a"); // logFile records and issues, or errors for debugging.
+checkForCookie(); //Checks for existing local data, if DNE, creates new cookie, -Jacob
+
 
 ////  GET request is sent from chrome browser extension.
 ////  Can users signup and access our service without entering their api keys? -Jacob
-
 if($_GET['email']!="")
 {
 	
 	 
 	//creates a connect token- Prerit 
-	$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'https://csel.cs.colorado.edu/~jaki2391/index.php', 'email' => '$_GET['email']')); 
+	//$addTokenResponse = $contextIO->addConnectToken(array('callback_url' => 'https://csel.cs.colorado.edu/~jaki2391/index.php', 'email' => '$_GET['email']')); 
 	//get the redirect url from the response, and direct the user to it - Prerit
-	$redirectUrl = $addTokenResponse->getDataProperty('browser_redirect_url');
-	print_r($redirectUrl);
+	//$redirectUrl = $addTokenResponse->getDataProperty('browser_redirect_url');
+	//print_r($redirectUrl);
 	//once the user connects, they will be redirected to the callback url with a contextio_token, which the app stores
 
 
